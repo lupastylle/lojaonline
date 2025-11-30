@@ -1,108 +1,141 @@
-  <!-- ===== MASCOTE INTERATIVO ===== -->
-  <div id="mascote-container" aria-live="polite">
-    <div id="mascote-animation">
-      <img src="mascotecientista.png" alt="Cientista Maluco Mascote" />
-    </div>
+<!-- ===== MASCOTE INTERATIVO (ajustado) ===== -->
+<div id="mascote-container" aria-live="polite">
+  <button id="mascote-animation" type="button" aria-label="Mascote cientista">
+    <img src="mascotecientista.png" alt="Cientista Maluco Mascote" draggable="false" />
+  </button>
 
-    <div id="mascote-balao" class="hidden">
-      <p id="mascote-texto"></p>
-      <button id="mascote-fechar" aria-label="Fechar mensagem">×</button>
-    </div>
-
-    <div id="mascote-controles">
-      <button id="mascote-toggle" aria-label="Minimizar mascote">Minimizar</button>
-    </div>
+  <div id="mascote-balao" class="hidden" role="status">
+    <p id="mascote-texto"></p>
+    <button id="mascote-fechar" type="button" aria-label="Fechar mensagem">×</button>
   </div>
 
-  <style>
-    #mascote-container {
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      z-index: 9999;
-      display: grid;
-      gap: 8px;
-      width: 180px;
-    }
-    #mascote-animation img {
-      width: 100%;
-      height: auto;
-    }
-    #mascote-balao {
-      background: #fff;
-      color: #222;
-      border-radius: 12px;
-      padding: 8px 10px;
-      font-size: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    #mascote-balao.hidden { display: none; }
-    #mascote-fechar {
-      position: absolute;
-      top: 4px;
-      right: 6px;
-      border: none;
-      background: transparent;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #mascote-toggle {
-      border: none;
-      background: #222;
-      color: #fff;
-      border-radius: 6px;
-      padding: 4px 8px;
-      cursor: pointer;
-    }
-  </style>
+  <div id="mascote-controles">
+    <button id="mascote-toggle" type="button" aria-label="Minimizar mascote">Minimizar</button>
+  </div>
+</div>
 
-  <script>
-    const Mascote = (() => {
-      let minimizado = false;
-      function falar(texto, tempo = 3000) {
-        const balao = document.getElementById('mascote-balao');
-        const p = document.getElementById('mascote-texto');
-        p.textContent = texto;
-        balao.classList.remove('hidden');
-        setTimeout(() => balao.classList.add('hidden'), tempo);
-      }
-      function minimizar() {
-        minimizado = !minimizado;
-        document.getElementById('mascote-container').style.display = minimizado ? 'none' : 'grid';
-      }
-      function bindEventos() {
-        document.getElementById('mascote-fechar').addEventListener('click', () => {
-          document.getElementById('mascote-balao').classList.add('hidden');
+<style>
+  #mascote-container {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 9999;
+    display: grid;
+    gap: 8px;
+    width: 200px;
+    pointer-events: auto;
+  }
+  #mascote-animation {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+  #mascote-animation img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  #mascote-balao {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: relative;
+    max-width: 220px;
+    word-wrap: break-word;
+  }
+  #mascote-balao.hidden { display: none; }
+  #mascote-fechar {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #mascote-toggle {
+    border: none;
+    background: #222;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  (function() {
+    function safe(fn) { try { fn(); } catch (e) { /* evita quebrar a página */ } }
+
+    function falar(texto, tempo = 3000) {
+      const balao = document.getElementById('mascote-balao');
+      const p = document.getElementById('mascote-texto');
+      if (!balao || !p) return;
+      p.textContent = texto;
+      balao.classList.remove('hidden');
+      setTimeout(() => balao.classList.add('hidden'), tempo);
+    }
+
+    function minimizar() {
+      const el = document.getElementById('mascote-container');
+      if (!el) return;
+      const hidden = el.dataset.min === '1';
+      el.dataset.min = hidden ? '0' : '1';
+      el.style.display = hidden ? 'grid' : 'none';
+    }
+
+    function bindEventos() {
+      const btnMascote = document.getElementById('mascote-animation');
+      const btnFechar = document.getElementById('mascote-fechar');
+      const btnToggle = document.getElementById('mascote-toggle');
+
+      if (btnMascote) {
+        btnMascote.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          safe(() => falar('Oi! Posso te ajudar a escolher seus óculos?'));
         });
-        document.getElementById('mascote-toggle').addEventListener('click', minimizar);
-        document.getElementById('mascote-animation').addEventListener('click', () => {
-          falar('Oi! Posso te ajudar a escolher seus óculos?');
-        });
-        // Ociosidade: fala após 20s sem interação
-        let idleTimer;
-        const resetIdle = () => {
-          clearTimeout(idleTimer);
-          idleTimer = setTimeout(() => falar('Ei! Viu nossas promoções?'), 20000);
-        };
-        ['mousemove','keydown','scroll','click','touchstart'].forEach(evt =>
-          document.addEventListener(evt, resetIdle)
-        );
-        resetIdle();
-        // Intenção de saída (desktop)
-        document.addEventListener('mouseleave', (e) => {
-          if (e.clientY <= 0) {
-            falar('Antes de sair, aproveite o cupom: LUPA10');
-          }
+      }
+
+      if (btnFechar) {
+        btnFechar.addEventListener('click', function(e) {
+          e.preventDefault();
+          safe(() => document.getElementById('mascote-balao').classList.add('hidden'));
         });
       }
-      function init() {
-        bindEventos();
-        setTimeout(() => falar('Bem-vindo! Eu sou o cientista da LUPA STYLLE 👓'), 1500);
+
+      if (btnToggle) {
+        btnToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          safe(minimizar);
+        });
       }
-      return { init };
-    })();
-    document.addEventListener('DOMContentLoaded', Mascote.init);
-  </script>
-</body>
-</html>
+
+      // Ociosidade
+      let idleTimer;
+      const resetIdle = () => {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => safe(() => falar('Ei! Viu nossas promoções?')), 20000);
+      };
+      ['mousemove','keydown','scroll','click','touchstart'].forEach(evt =>
+        document.addEventListener(evt, resetIdle, { passive: true })
+      );
+      resetIdle();
+
+      // Intenção de saída (desktop)
+      document.addEventListener('mouseleave', function(e) {
+        if (e.clientY <= 0) safe(() => falar('Antes de sair, aproveite o cupom: LUPA10'));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      safe(bindEventos);
+      setTimeout(() => safe(() => falar('Bem-vindo! Eu sou o cientista da LUPA STYLLE 👓')), 1200);
+    });
+  })();
+</script>
