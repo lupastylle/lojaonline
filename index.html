@@ -1309,15 +1309,9 @@
     document.getElementById('wa-number').innerText = '5512997301273';
     updateCartUI();
 
-    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) ==========
-    setInterval(() => {
-      const randomPeople = Math.floor(Math.random() * 50) + 70;
-      const randomSales = Math.floor(Math.random() * 200) + 1100;
-      const proofElement = document.querySelector('.social-proof');
-      if(proofElement) {
-        proofElement.innerHTML = '✓ <strong>' + randomSales + ' pessoas</strong> compraram este mês | <strong>' + randomPeople + ' pessoas</strong> estão vendo agora';
-      }
-    }, 8000);
+	    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) - REMOVIDO PARA MAIOR REALISMO ==========
+	    // O elemento .social-proof agora é estático, refletindo os números iniciais do HTML.
+	    // Para atualizar, edite o HTML diretamente na linha 989.
 
     // ========== PARALLAX SUAVE NO BANNER ==========
     const heroRight = document.querySelector('.hero-right img');
