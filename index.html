@@ -1452,16 +1452,10 @@
 	        if (!balao || !p) return;
 	        p.textContent = texto;
 	        balao.classList.remove('hidden');
-	        setTimeout(() => balao.classList.add('hidden'), tempo);
+	        // Removido: setTimeout(() => balao.classList.add('hidden'), tempo); // O balão só fecha no clique do 'x'
 	      }
 	
-	      function minimizar() {
-	        const el = document.getElementById('mascote-container');
-	        if (!el) return;
-	        const hidden = el.dataset.min === '1';
-	        el.dataset.min = hidden ? '0' : '1';
-	        el.style.display = hidden ? 'grid' : 'none';
-	      }
+
 	
 	      function animarMascote() {
 	        const mascoteImg = document.querySelector('#mascote-animation img');
@@ -1505,7 +1499,6 @@
 	      function bindEventosMascote() {
 	        const btnMascote = document.getElementById('mascote-animation');
 	        const btnFechar = document.getElementById('mascote-fechar');
-	        const btnToggle = document.getElementById('mascote-toggle');
 	
 	        if (btnMascote) {
 	          btnMascote.addEventListener('click', () => {
@@ -1515,9 +1508,6 @@
 	        }
 	        if (btnFechar) {
 	          btnFechar.addEventListener('click', () => document.getElementById('mascote-balao').classList.add('hidden'));
-	        }
-	        if (btnToggle) {
-	          btnToggle.addEventListener('click', minimizar);
 	        }
 	
 	        // Ociosidade + Produção de óculos
@@ -1572,7 +1562,7 @@
 	    <div id="mascote-animation">
 	      <img src="./mascotecientista.png" alt="Mascote Cientista Maluco LUPA STYLLE" />
 	    </div>
-	    <button id="mascote-toggle">_</button>
+
 	  </div>
 	</body>
 	</html>
