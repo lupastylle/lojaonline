@@ -934,7 +934,8 @@
 	      z-index: 10001;
 	    }
 	
-		    #mascote-animation img {
+		    #mascote-animation video {
+	          filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Sombra verde */
 		      width: 100%;
 		      height: auto;
 		      display: block;
@@ -1395,27 +1396,16 @@
 
 	
 	      function animarMascote() {
-	        const mascoteImg = document.querySelector('#mascote-animation img');
+	        const mascoteImg = document.getElementById('mascote-video');
 	        if (mascoteImg) {
-	          // Piscar óculos
-	          mascoteImg.style.filter = 'brightness(200%)';
-	          setTimeout(() => mascoteImg.style.filter = 'brightness(100%)', 200);
-	
+// Animações de imagem removidas, pois o mascote agora é um vídeo animado.
 	          // Soltar fumaça verde
 	          const fumaca = document.createElement('div');
 	          fumaca.className = 'fumaca';
 	          document.getElementById('mascote-container').appendChild(fumaca);
 	          setTimeout(() => fumaca.remove(), 3000);
 	
-	          // Movimento
-	          mascoteImg.style.transition = 'transform 0.4s ease';
-	          mascoteImg.style.transform = 'rotate(10deg)';
-	          setTimeout(() => {
-	            mascoteImg.style.transform = 'rotate(-10deg)';
-	            setTimeout(() => {
-	              mascoteImg.style.transform = 'rotate(0deg)';
-	            }, 400);
-	          }, 400);
+	          // Movimento de imagem removido.
 	        }
 	      }
 	
@@ -1550,24 +1540,13 @@
 	        });
 	      }
 	
-	      function piscarOlhos() {
-	        const mascoteImg = document.querySelector('#mascote-animation img');
-	        if (mascoteImg) {
-	          // Piscar óculos (simulando um piscar de olhos)
-	          mascoteImg.style.filter = 'brightness(150%) drop-shadow(0 0 10px rgba(0, 255, 0, 0.5))';
-	          setTimeout(() => mascoteImg.style.filter = 'brightness(100%) drop-shadow(0 0 10px rgba(0, 255, 0, 0.5))', 100);
-	        }
-	      }
+	      // A função piscarOlhos foi removida, pois o mascote agora é um vídeo animado.
 	
 	      document.addEventListener('DOMContentLoaded', function() {
 	        bindEventosMascote();
 	        setTimeout(() => saudacaoPorHorario(), 1200);
 	        
-	        // Inicia o piscar de olhos em intervalos aleatórios
-	        setInterval(() => {
-	          const randomTime = Math.floor(Math.random() * 5000) + 5000; // Entre 5 e 10 segundos
-	          setTimeout(piscarOlhos, randomTime);
-	        }, 10000); // Verifica a cada 10 segundos
+	        // A função piscarOlhos foi removida, pois o mascote agora é um vídeo animado.
 	      });
 	    })();
   </script>
@@ -1578,7 +1557,7 @@
 	      <button id="mascote-fechar">×</button>
 	    </div>
 	    <div id="mascote-animation">
-	      <img src="./mascotecientista.png" alt="Mascote Cientista Maluco LUPA STYLLE" />
+	      <video id="mascote-video" src="./mascoteloco.mp4" autoplay loop muted playsinline alt="Mascote Cientista Maluco LUPA STYLLE - Vídeo Interativo"></video>
 	    </div>
 
 	  </div>
