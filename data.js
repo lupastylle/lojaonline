@@ -9,7 +9,7 @@ const products = [
         title: 'JULIET - PLASMA GOLD CAFÉ + STRAP',
         price: 229.99,
         old: 300,
-        img: 'imagesproduto1.webp',
+        img: 'imagesproduto1.jpg',
         category: 'destaque'
       },
       {
@@ -17,7 +17,7 @@ const products = [
         title: 'JULIET - BEGE CRISTAL',
         price: 229.99,
         old: 300,
-        img: 'imagesproduto2.webp',
+        img: 'imagesproduto2.jpg',
         category: 'destaque'
       },
       {
@@ -25,7 +25,7 @@ const products = [
         title: 'JULIET - BEGE VIOLETA ESCURO',
         price: 229.99,
         old: 300,
-        img: 'imagesproduto3.webp',
+        img: 'imagesproduto3.jpg',
         category: 'destaque'
       },
       // NOVIDADES
@@ -34,7 +34,7 @@ const products = [
         title: 'RADAR EV - LENTE VERMELHA',
         price: 159.99,
         old: 220,
-        img: 'imagesproduto4.webp',
+        img: 'imagesproduto4.jpg',
         category: 'novidade'
       },
       {
@@ -42,7 +42,7 @@ const products = [
         title: 'BLADE - LENTE TRANSPARENTE',
         price: 159.99,
         old: 220,
-        img: 'imagesproduto5.webp',
+        img: 'imagesproduto5.jpg',
         category: 'novidade'
       },
       {
@@ -50,7 +50,7 @@ const products = [
         title: 'ESTOJO PREMIUM COURO',
         price: 49.99,
         old: 79.99,
-        img: 'imagesproduto1.webp',
+        img: 'imagesproduto1.jpg',
         category: 'acessorio'
       },
       {
@@ -58,7 +58,7 @@ const products = [
         title: 'CORRENTE PARA OCULOS',
         price: 29.99,
         old: 49.99,
-        img: 'imagesproduto2.webp',
+        img: 'imagesproduto2.jpg',
         category: 'acessorio'
       },
       {
@@ -66,7 +66,7 @@ const products = [
         title: 'KIT LIMPEZA PROFISSIONAL',
         price: 19.99,
         old: 39.99,
-        img: 'imagesproduto3.webp',
+        img: 'imagesproduto3.jpg',
         category: 'acessorio'
       },
       {
@@ -74,7 +74,7 @@ const products = [
         title: 'JULIET - PLASMA GOLD CAFE PROMOCAO',
         price: 199.99,
         old: 300,
-        img: 'imagesproduto1.webp',
+        img: 'imagesproduto1.jpg',
         category: 'promocao'
       },
       {
@@ -82,7 +82,7 @@ const products = [
         title: 'RADAR EV - LENTE VERMELHA DESCONTO',
         price: 129.99,
         old: 220,
-        img: 'imagesproduto4.webp',
+        img: 'imagesproduto4.jpg',
         category: 'promocao'
       }
     ];
