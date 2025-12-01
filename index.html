@@ -1,187 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LUPA STYLLE - Óculos com Protocolo Visão Blindada 360°. Compre óculos de qualidade premium com proteção UV real, resistência a impacto e conforto anatômico. Entrega rápida no Brasil." />
-  <meta name="keywords" content="óculos, óculos de sol, óculos premium, óculos com proteção UV, óculos Juliet, óculos Radar, acessórios para óculos, estojo para óculos, comprar óculos online, óculos com desconto" />
-  <meta name="author" content="LUPA STYLLE" />
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="Portuguese" />
-  <meta name="revisit-after" content="7 days" />
-  <meta name="theme-color" content="#0b0b0b" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="LUPA STYLLE - Óculos Premium com Visão Blindada 360°" />
-  <meta property="og:description" content="Descubra óculos de qualidade superior com proteção UV real e conforto anatômico. Protocolo Visão Blindada 360° garante resistência e durabilidade." />
-  <meta property="og:image" content="https://peaceful-baklava-57a81e.netlify.app/banner.png?v=2" />
-  <meta property="og:url" content="https://peaceful-baklava-57a81e.netlify.app/" />
-  <meta property="og:site_name" content="LUPA STYLLE" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="LUPA STYLLE - Óculos Premium" />
-  <meta name="twitter:description" content="Compre óculos com Protocolo Visão Blindada 360°. Proteção UV real, resistência a impacto e conforto garantidos." />
-  <meta name="twitter:image" content="https://peaceful-baklava-57a81e.netlify.app/banner.png?v=2" />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://peaceful-baklava-57a81e.netlify.app/" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="./imageslogo.jpg" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <!-- Seu CSS existente aqui (mantive tudo que você enviou) -->
+  <meta charset="UTF-8">
+  <title>Lupa Stylle</title>
   <style>
-    /* ... todo o CSS que você já tinha ... */
+    .cientista {
+      width: 250px;       /* tamanho da imagem */
+      display: block;
+      margin: 20px auto;  /* centraliza na tela */
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- HEADER -->
-    <!-- HERO -->
-    <!-- BENEFÍCIOS -->
-    <!-- PROVA SOCIAL -->
-    <!-- OFERTAS -->
-    <!-- FOTOS -->
-    <!-- ACESSÓRIOS -->
-    <!-- LANÇAMENTOS -->
-    <!-- PROTOCOLO -->
-    <!-- FOOTER -->
-  </div>
-
-  <!-- WHATSAPP -->
-  <!-- CARRINHO -->
-  <script>
-    // ... todo o seu JavaScript existente ...
-  </script>
-
-  <!-- ===== MASCOTE INTERATIVO ===== -->
-  <div id="mascote-container" aria-live="polite">
-    <button id="mascote-animation" type="button" aria-label="Mascote cientista">
-      <img src="mascotecientista.png" alt="Cientista Maluco Mascote" draggable="false" />
-    </button>
-
-    <div id="mascote-balao" class="hidden" role="status">
-      <p id="mascote-texto"></p>
-      <button id="mascote-fechar" type="button" aria-label="Fechar mensagem">×</button>
-    </div>
-
-    <div id="mascote-controles">
-      <button id="mascote-toggle" type="button" aria-label="Minimizar mascote">Minimizar</button>
-    </div>
-  </div>
-
-  <style>
-    #mascote-container {
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      z-index: 9999;
-      display: grid;
-      gap: 8px;
-      width: 180px;
-    }
-    #mascote-animation {
-      border: none;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-    }
-    #mascote-animation img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    #mascote-balao {
-      background: #fff;
-      color: #222;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      position: relative;
-      max-width: 220px;
-    }
-    #mascote-balao.hidden { display: none; }
-    #mascote-fechar {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      border: none;
-      background: transparent;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #mascote-toggle {
-      border: none;
-      background: #222;
-      color: #fff;
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-  </style>
-
-  <script>
-    (function() {
-      function falar(texto, tempo = 3000) {
-        const balao = document.getElementById('mascote-balao');
-        const p = document.getElementById('mascote-texto');
-        if (!balao || !p) return;
-        p.textContent = texto;
-        balao.classList.remove('hidden');
-        setTimeout(() => balao.classList.add('hidden'), tempo);
-      }
-
-      function minimizar() {
-        const el = document.getElementById('mascote-container');
-        if (!el) return;
-        const hidden = el.dataset.min === '1';
-        el.dataset.min = hidden ? '0' : '1';
-        el.style.display = hidden ? 'grid' : 'none';
-      }
-
-      function bindEventos() {
-        const btnMascote = document.getElementById('mascote-animation');
-        const btnFechar = document.getElementById('mascote-fechar');
-        const btnToggle = document.getElementById('mascote-toggle');
-
-        if (btnMascote) {
-          btnMascote.addEventListener('click', () => falar('Oi! Posso te ajudar a escolher seus óculos?'));
-        }
-        if (btnFechar) {
-          btnFechar.addEventListener('click', () => document.getElementById('mascote-balao').classList.add('hidden'));
-        }
-        if (btnToggle) {
-          btnToggle.addEventListener('click', minimizar);
-        }
-
-        // Ociosidade
-        let idleTimer;
-        const resetIdle = () => {
-          clearTimeout(idleTimer);
-          idleTimer = setTimeout(() => falar('Ei! Viu nossas promoções?'), 20000);
-        };
-        ['mousemove','keydown','scroll','click','touchstart'].forEach(evt =>
-          document.addEventListener(evt, resetIdle, { passive: true })
-        );
-        resetIdle();
-
-        // Intenção de saída
-        document.addEventListener('mouseleave', (e) => {
-          if (e.clientY <= 0) falar('Antes de sair, aproveite o cupom: LUPA10');
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', function() {
-        bindEventos();
-        setTimeout(() => falar('Bem-vindo! Eu sou o cientista da LUPA STYLLE 👓'), 1200);
-      });
-    })();
-  </script>
+  <h1>Bem-vindo à Lupa Stylle</h1>
+  <!-- Mascote Cientista -->
+  <img src="cientista.png" alt="Cientista Maluco" class="cientista">
 </body>
 </html>
