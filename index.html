@@ -895,15 +895,22 @@
 		      position: fixed;
 		      bottom: 20px;
 		      left: 20px;
-	      z-index: 10000;
+		      z-index: 10000;
 		      width: 120px;
 		      height: 200px;
-	      display: grid;
-	      grid-template-areas: "balao" "mascote";
-	      grid-template-rows: 1fr auto;
-	      align-items: end;
-	      padding: 10px;
-	    }
+		      display: grid;
+		      grid-template-areas: "balao" "mascote";
+		      grid-template-rows: 1fr auto;
+		      align-items: end;
+		      padding: 10px;
+		      opacity: 0;
+		      animation: fadeInMascote 1s ease-out 1s forwards;
+		    }
+		
+		    @keyframes fadeInMascote {
+		      from { opacity: 0; transform: translateY(50px); }
+		      to { opacity: 1; transform: translateY(0); }
+		    }
 	
 	    #mascote-animation {
 	      grid-area: mascote;
@@ -912,12 +919,13 @@
 	      z-index: 10001;
 	    }
 	
-	    #mascote-animation img {
-	      width: 100%;
-	      height: auto;
-	      display: block;
-	      transition: transform 0.4s ease;
-	    }
+		    #mascote-animation img {
+		      width: 100%;
+		      height: auto;
+		      display: block;
+		      transition: transform 0.4s ease;
+		      filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Sombra verde */
+		    }
 	
 	    #mascote-balao {
 	      grid-area: balao;
@@ -1524,12 +1532,78 @@
 	        );
 	        resetIdle();
 	
-	        // Intenção de saída
-	        document.addEventListener('mouseleave', (e) => {
-	          if (e.clientY <= 0) falar('Antes de sair, aproveite o cupom: LUPA10');
-	        });
+	        // Intervenção após 15s na seção de produtos (simulando visualização de produto)
+	        let productTimer;
+	        const productSection = document.getElementById('productsGrid');
+	        const promoSection = document.getElementById('promoGrid');
+	        const acessoriosSection = document.getElementById('acessoriosGrid');
+	        const lancamentosSection = document.getElementById('novidadesGrid');
 	
-	        // Resposta ao adicionar produto ao carrinho (Integrado com a lógica existente)
+	        const checkProductView = () => {
+	          const sections = [productSection, promoSection, acessoriosSection, lancamentosSection];
+	          const isViewingProduct = sections.some(section => {
+	            if (!section) return false;
+	            const rect = section.getBoundingClientRect();
+	            return rect.top < window.innerHeight && rect.bottom >= 0;
+	          });
+	
+	          if (isViewingProduct) {
+	            clearTimeout(productTimer);
+	            productTimer = setTimeout(() => {
+	              falar("Vi que você gostou desse modelo! Ele é um dos mais resistentes. Quer ver um vídeo de teste de impacto?");
+	              animarMascote();
+	            }, 15000); // 15 segundos
+	          } else {
+	            clearTimeout(productTimer);
+	          }
+	        };
+	
+	        document.addEventListener('scroll', checkProductView, { passive: true });
+	        checkProductView(); // Verifica ao carregar
+	
+	        // Intervenção contextual por seção
+	        const sectionsToWatch = [
+	          { id: 'ofertas', fala: "Fique de olho! Esses modelos estão com o Protocolo Blindado ativado e o preço desativado! 💥" },
+	          { id: 'fotos', fala: "Esses são os óculos que mais saem do meu laboratório! Quer saber por que são os favoritos?" },
+	          { id: 'acessorios', fala: "Não esqueça! Acessórios são o toque final para a sua Visão Blindada. 🧪" },
+	          { id: 'protocolo', fala: "Aqui é onde a mágica acontece! Eu garanto a qualidade de cada lente no meu laboratório. Pergunte-me sobre o UV400!" }
+	        ];
+	        let spokenSections = {};
+	
+	        const checkSectionView = () => {
+	          sectionsToWatch.forEach(section => {
+	            const el = document.getElementById(section.id);
+	            if (!el || spokenSections[section.id]) return;
+	
+	            const rect = el.getBoundingClientRect();
+	            const isVisible = rect.top < window.innerHeight * 0.75 && rect.bottom >= window.innerHeight * 0.25;
+	
+	            if (isVisible) {
+	              falar(section.fala, 6000); // Fala por 6 segundos
+	              spokenSections[section.id] = true; // Marca como falado
+	            }
+	          });
+	        };
+	
+	        document.addEventListener('scroll', checkSectionView, { passive: true });
+	        checkSectionView(); // Verifica ao carregar
+	
+		        // Intenção de saída
+		        document.addEventListener('mouseleave', (e) => {
+		          if (e.clientY <= 0) {
+		            const cartElement = document.querySelector('#openCart');
+		            const cartCountMatch = cartElement ? cartElement.innerText.match(/\d+/) : null;
+		            const cartCount = cartCountMatch ? parseInt(cartCountMatch[0], 10) : 0;
+		
+		            if (cartCount > 0) {
+		              falar('Ei! Não vá embora! Se precisar de ajuda com o frete ou tiver alguma dúvida, estou aqui. Posso te dar uma dica?');
+		            } else {
+		              falar('Antes de sair, aproveite o cupom: LUPA10');
+		            }
+		          }
+		        });
+		
+		        // Resposta ao adicionar produto ao carrinho (Integrado com a lógica existente)
 	        document.body.addEventListener('click', function(e) {
 	          if(e.target.matches('.buy')) {
 	            setTimeout(() => {
@@ -1547,9 +1621,24 @@
 	        });
 	      }
 	
+	      function piscarOlhos() {
+	        const mascoteImg = document.querySelector('#mascote-animation img');
+	        if (mascoteImg) {
+	          // Piscar óculos (simulando um piscar de olhos)
+	          mascoteImg.style.filter = 'brightness(150%) drop-shadow(0 0 10px rgba(0, 255, 0, 0.5))';
+	          setTimeout(() => mascoteImg.style.filter = 'brightness(100%) drop-shadow(0 0 10px rgba(0, 255, 0, 0.5))', 100);
+	        }
+	      }
+	
 	      document.addEventListener('DOMContentLoaded', function() {
 	        bindEventosMascote();
 	        setTimeout(() => saudacaoPorHorario(), 1200);
+	        
+	        // Inicia o piscar de olhos em intervalos aleatórios
+	        setInterval(() => {
+	          const randomTime = Math.floor(Math.random() * 5000) + 5000; // Entre 5 e 10 segundos
+	          setTimeout(piscarOlhos, randomTime);
+	        }, 10000); // Verifica a cada 10 segundos
 	      });
 	    })();
   </script>
