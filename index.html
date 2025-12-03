@@ -334,6 +334,89 @@
       transform: none;
     }
 
+    /* ===== MASCOTE INTERATIVO ===== */
+    .mascote-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 250px; /* Tamanho do mascote */
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      pointer-events: none; /* Permite clicar através do container, mas não do mascote */
+    }
+
+    .mascote-gif {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: auto; /* Permite interação com o GIF */
+      cursor: pointer;
+    }
+
+    .balao-fala {
+      position: absolute;
+      top: 0;
+      right: 100%; /* Posiciona à esquerda do mascote */
+      margin-right: 15px;
+      background-color: #fff;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 200px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s, visibility 0.5s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .balao-fala::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10px; /* Posiciona o bico à direita */
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid #fff;
+    }
+
+    .balao-fala.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .mascote-container {
+        width: 180px;
+        height: 180px;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .balao-fala {
+        max-width: 150px;
+        font-size: 12px;
+        margin-right: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mascote-container {
+        width: 150px;
+        height: 150px;
+        bottom: 5px;
+        right: 5px;
+      }
+    }
+
     @media (max-width: 1024px) {
       .hero-right {
         min-height: 300px;
@@ -934,14 +1017,12 @@
 	      z-index: 10001;
 	    }
 	
-		    #mascote-animation video {
-	          mix-blend-mode: screen;
-	          filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Sombra verde */
+		    #mascote-animation img {
 		      width: 100%;
 		      height: auto;
 		      display: block;
 		      transition: transform 0.4s ease;
-		      filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Sombra verde */
+filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Sombra verde */
 		    }
 	
 	    #mascote-balao {
@@ -1397,16 +1478,27 @@
 
 	
 	      function animarMascote() {
-	        const mascoteImg = document.getElementById('mascote-video');
+	        const mascoteImg = document.querySelector('#mascote-animation img');
 	        if (mascoteImg) {
-// Animações de imagem removidas, pois o mascote agora é um vídeo animado.
+// Piscar óculos
+	          mascoteImg.style.filter = 'brightness(200%)';
+	          setTimeout(() => mascoteImg.style.filter = 'brightness(100%)', 200);
+
 	          // Soltar fumaça verde
 	          const fumaca = document.createElement('div');
 	          fumaca.className = 'fumaca';
 	          document.getElementById('mascote-container').appendChild(fumaca);
 	          setTimeout(() => fumaca.remove(), 3000);
 	
-	          // Movimento de imagem removido.
+	          // Movimento
+	          mascoteImg.style.transition = 'transform 0.4s ease';
+	          mascoteImg.style.transform = 'rotate(10deg)';
+	          setTimeout(() => {
+	            mascoteImg.style.transform = 'rotate(-10deg)';
+	            setTimeout(() => {
+	              mascoteImg.style.transform = 'rotate(0deg)';
+	            }, 400);
+	          }, 400);
 	        }
 	      }
 	
@@ -1538,16 +1630,10 @@
 	              }
 	            }, 1500);
 	          }
-	        });
-	      }
-	
-	      // A função piscarOlhos foi removida, pois o mascote agora é um vídeo animado.
-	
+	        });	
 	      document.addEventListener('DOMContentLoaded', function() {
 	        bindEventosMascote();
 	        setTimeout(() => saudacaoPorHorario(), 1200);
-	        
-	        // A função piscarOlhos foi removida, pois o mascote agora é um vídeo animado.
 	      });
 	    })();
   </script>
@@ -1558,9 +1644,83 @@
 	      <button id="mascote-fechar">×</button>
 	    </div>
 	    <div id="mascote-animation">
-	      <video id="mascote-video" src="./mascoteloco.mp4" autoplay loop muted playsinline alt="Mascote Cientista Maluco LUPA STYLLE - Vídeo Interativo"></video>
+	      <div class="mascote-container">
+        <div id="balao-fala" class="balao-fala"></div>
+        <img id="mascote-gif" class="mascote-gif" src="./cientistamaluco.gif" alt="Mascote Cientista Maluco LUPA STYLLE Animado" />
+      </div>
 	    </div>
 
 	  </div>
-	</body>
+	<script>
+        const MASCOTE_TIMINGS = [
+          { start: 0, duration: 5.00, message: "Bem-vindo(a) à LUPA STYLLE! Prepare-se para a **Visão Blindada 360°**." }, // TEKE 1
+          { start: 5.00, duration: 3.26, message: "Mais de 10.000 clientes já comprovaram a qualidade premium das nossas lentes!" }, // TEKE 2
+          { start: 8.26, duration: 4.00, message: "Você sabia? Nossas lentes possuem 7 camadas de proteção UV real. É ciência!" }, // TEKE 3
+          { start: 12.26, duration: 3.00, message: "Temos o modelo perfeito para você! Explore a variedade de cores e estilos." }, // TEKE 4
+          { start: 15.26, duration: 4.00, message: "Foco total na sua experiência. Estamos aqui para garantir sua melhor visão." }, // TEKE 5 (Idle/Professionalism)
+          { start: 19.26, duration: 3.00, message: "Pense na durabilidade. Nossos óculos são feitos para resistir ao seu dia a dia." }, // TEKE 6 (Idle/Focus)
+          { start: 22.26, duration: 4.00, message: "Não perca tempo! O futuro da sua visão começa agora. Clique e compre!" } // TEKE 7 (Idle/Thinking)
+        ];
+        const TOTAL_DURATION = 26.26; // Duração total do GIF em segundos
+        const mascoteGif = document.getElementById('mascote-gif');
+        const balaoFala = document.getElementById('balao-fala');
+        let startTime = 0;
+
+        function updateMascoteInteraction() {
+          const currentTime = (Date.now() - startTime) / 1000; // Tempo em segundos desde o início
+          const loopTime = currentTime % TOTAL_DURATION; // Tempo dentro do ciclo de 26.26s
+
+          let currentTeke = MASCOTE_TIMINGS[0];
+          for (const teke of MASCOTE_TIMINGS) {
+            if (loopTime >= teke.start) {
+              currentTeke = teke;
+            } else {
+              break;
+            }
+          }
+
+          // Atualiza o balão de fala
+          balaoFala.innerHTML = currentTeke.message;
+          balaoFala.classList.add('show');
+
+          // Oculta o balão de fala 1 segundo antes do próximo TEKE
+          const nextTekeIndex = (MASCOTE_TIMINGS.indexOf(currentTeke) + 1) % MASCOTE_TIMINGS.length;
+          const nextTekeStart = MASCOTE_TIMINGS[nextTekeIndex].start;
+          let timeUntilNextTeke = nextTekeStart - loopTime;
+
+          if (timeUntilNextTeke < 0) {
+            timeUntilNextTeke += TOTAL_DURATION; // Se for o último TEKE, volta para o início do loop
+          }
+
+          // Oculta o balão de fala se estiver muito perto do fim do TEKE atual (1 segundo antes do próximo)
+          if (timeUntilNextTeke < 1.0) {
+            balaoFala.classList.remove('show');
+          }
+        }
+
+        function startMascote() {
+          startTime = Date.now();
+          // Garante que o GIF comece a tocar
+          mascoteGif.src = './cientistamaluco.gif?' + Date.now(); // Adiciona um timestamp para forçar o recarregamento e o início
+          
+          // Inicia o loop de atualização a cada 100ms
+          setInterval(updateMascoteInteraction, 100);
+
+          // Adiciona um evento de clique para interação surpresa
+          mascoteGif.addEventListener('click', () => {
+            // Mensagem surpresa
+            balaoFala.innerHTML = "Opa! Não me assuste! Quer saber mais sobre o Protocolo Visão Blindada 360°?";
+            balaoFala.classList.add('show');
+            
+            // Oculta após 3 segundos
+            setTimeout(() => {
+              balaoFala.classList.remove('show');
+            }, 3000);
+          });
+        }
+
+        // Inicia o mascote após o carregamento completo da página
+        window.addEventListener('load', startMascote);
+      </script>
+    </body>
 	</html>
