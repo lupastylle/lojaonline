@@ -367,744 +367,917 @@
       display: flex;
       gap: 18px;
       justify-content: space-between;
-      padding: 40px 0;
+      margin: 24px 0;
       flex-wrap: wrap;
     }
 
     .benefit {
       flex: 1;
-      min-width: 200px;
-      padding: 24px;
-      border-radius: 12px;
       background: var(--glass);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px;
+      border-radius: 10px;
       text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .benefit:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .benefit h3 {
-      margin: 12px 0 8px;
-      font-size: 18px;
-      color: var(--accent);
-    }
-
-    .benefit p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .benefit-icon {
-      font-size: 32px;
-    }
-
-    /* ===== PRODUCTS ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 24px;
-      padding: 40px 0;
-    }
-
-    .card {
-      background: var(--glass);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      animation: card-load 0.5s ease-out forwards;
+      border: 1px solid rgba(0, 255, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-width: 200px;
       opacity: 0;
-      transform: translateY(20px);
+      animation: scrollReveal 0.6s ease-out forwards;
     }
 
-    @keyframes card-load {
+    .benefit:nth-child(1) { animation-delay: 0.1s; }
+    .benefit:nth-child(2) { animation-delay: 0.2s; }
+    .benefit:nth-child(3) { animation-delay: 0.3s; }
+    .benefit:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes scrollReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(0, 255, 0, 0.4);
+    .benefit:hover {
+      background: rgba(0, 255, 0, 0.1);
+      border-color: rgba(0, 255, 0, 0.5);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 255, 0, 0.2);
     }
 
-    .card-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+    .benefit-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
     }
 
-    .card-body {
-      padding: 18px;
-      flex-grow: 1;
+    .benefit-title {
+      display: block;
+      margin-top: 8px;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .benefit-desc {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #e6e6e6;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      margin-top: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin: 24px 0;
+      gap: 8px;
+    }
+
+    .section-title h3 {
+      font-size: 28px;
+      margin: 0;
+      background: linear-gradient(90deg, #00ff00, #00cc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      .section-title h3 {
+        font-size: 22px;
+      }
+
+      .section {
+        margin-top: 30px;
+        padding-bottom: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title h3 {
+        font-size: 18px;
+      }
+
+      .section {
+        margin-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+
+    .section-title a {
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .section-title a:hover {
+      color: var(--accent);
+    }
+
+    /* ===== GRID & CARDS ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+
+
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .card-title {
-      font-size: 18px;
+      margin-top: 10px;
       font-weight: 700;
-      margin: 0 0 8px;
-    }
-
-    .card-price {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .card-price .old-price {
       font-size: 14px;
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .old {
       color: var(--muted);
       text-decoration: line-through;
-      margin-left: 8px;
+      font-size: 13px;
     }
 
-    .card-colors {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .color-swatch {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .color-swatch:hover {
-      transform: scale(1.1);
-    }
-
-    .card-actions {
-      margin-top: auto;
-      display: flex;
-      gap: 12px;
+    .now {
+      font-weight: 800;
+      color: #00cc00;
+      font-size: 18px;
     }
 
     .buy {
-      flex-grow: 1;
-      background: var(--accent);
-      color: #000;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-weight: 700;
+      display: block;
+      margin-top: 12px;
+      background: #111;
+      color: var(--accent);
+      padding: 10px;
+      border-radius: 10px;
       text-align: center;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .buy::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transition: left 0.3s ease;
+      z-index: -1;
     }
 
     .buy:hover {
-      background: var(--accent-dark);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 255, 0, 0.3);
+    }
+
+    .buy:hover::before {
+      left: 0;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 48px;
+      padding: 30px 0;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    footer strong {
+      color: var(--accent);
+      font-size: 16px;
+    }
+
+    footer-desc {
+      margin-top: 6px;
+      max-width: 420px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer-contact {
+      text-align: right;
+    }
+
+    footer-contact-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer-contact-value {
+      margin-top: 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* ===== WHATSAPP FLUTUANTE ===== */
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      z-index: 999;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .whatsapp-float:hover {
+      background: #1fa857;
+      transform: scale(1.15);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+    }
+
+    /* ===== PROVA SOCIAL ===== */
+    .social-proof {
+      background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 16px 0;
+      text-align: center;
+      font-size: 14px;
+      color: #e6e6e6;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    .social-proof strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+
+    /* ===== TOAST NOTIFICATION ===== */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1001;
+      animation: toastSlide 0.4s ease-out, toastFade 0.4s ease-out 2.6s forwards;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    @keyframes toastSlide {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes toastFade {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* ===== LOADING SPINNER ===== */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 3px solid rgba(0, 0, 0, 0.2);
+      border-top: 3px solid #000;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buy.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* ===== MELHORIAS DE HOVER ===== */
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: #111;
+      border-radius: 12px;
+      padding: 12px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      border: 2px solid rgba(0, 255, 0, 0.1);
+      opacity: 0;
+      animation: cardReveal 0.6s ease-out forwards;
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 255, 0, 0.3);
+      border-color: rgba(0, 255, 0, 0.5);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .card:hover img {
+      transform: scale(1.08);
     }
 
     /* ===== CART ===== */
-    .cart-overlay {
+    .cart-btn {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
+      right: 20px;
+      bottom: 90px;
+      background: var(--accent);
+      color: #000;
+      padding: 14px 18px;
+      border-radius: 999px;
+      z-index: 1000;
+      box-shadow: 0 6px 20px rgba(0, 255, 0, 0.4);
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .cart-overlay.open {
-      opacity: 1;
-      visibility: visible;
+    .cart-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.1);
     }
 
-    .cart {
+    .cart-panel {
       position: fixed;
-      top: 0;
-      right: -400px;
-      width: 400px;
-      height: 100%;
-      background: #1a1a1a;
-      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      right: 20px;
+      bottom: 80px;
+      width: 360px;
+      background: #fff;
+      color: #111;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      display: none;
       z-index: 1000;
-      transition: right 0.4s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart.open {
-      right: 0;
-    }
-
-    .cart-header {
-      padding: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cart-header h3 {
-      margin: 0;
-      color: var(--accent);
-    }
-
-    #closeCart {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .cart-body {
-      flex-grow: 1;
+      max-height: 400px;
       overflow-y: auto;
-      padding: 18px;
+    }
+
+    .cart-panel h4 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #111;
     }
 
     .cart-item {
       display: flex;
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
     }
 
     .cart-item img {
-      width: 80px;
-      height: 80px;
+      width: 56px;
+      height: 56px;
       object-fit: cover;
       border-radius: 8px;
     }
 
-    .cart-item-info h4 {
-      margin: 0 0 8px;
-      font-size: 16px;
+    .cart-item-info {
+      flex: 1;
     }
 
-    .cart-item-info p {
-      margin: 0;
+    .cart-item-title {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .cart-item-price {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 12px;
+      margin-top: 4px;
     }
 
-    .cart-footer {
-      padding: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    .cart-item-controls {
+      text-align: right;
+    }
+
+    .cart-item-controls button {
+      background: #f0f0f0;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+      margin: 0 2px;
     }
 
     .cart-total {
       display: flex;
       justify-content: space-between;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 18px;
+      font-weight: 800;
+      margin-top: 12px;
+      font-size: 16px;
+      color: #111;
     }
 
-    .checkout {
-      width: 100%;
-      background: var(--accent);
-      color: #000;
-      padding: 12px;
+    .whatsapp-btn {
+      display: block;
+      margin-top: 12px;
+      background: #25D366;
+      color: #fff;
+      padding: 10px;
       border-radius: 8px;
+      text-align: center;
       font-weight: 700;
-      text-align: center;
       transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
     }
 
-    .checkout:hover {
-      background: var(--accent-dark);
+    .whatsapp-btn:hover {
+      background: #1fa857;
     }
 
-    /* ===== FOOTER ===== */
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* ===== PROTOCOLO SECTION ===== */
-    .protocolo-section {
-      padding: 40px 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 36px;
-      align-items: center;
-    }
-
-    .protocolo-section img {
-      width: 100%;
-      border-radius: 12px;
-    }
-
-    .protocolo-list li {
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
-
-    .protocolo-list strong {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      .protocolo-section {
+/* ===== NOVO MASCOTE GIF ===== */
+#new-mascote-gif {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* Canto esquerdo */
+  z-index: 10000;
+  width: 150px; /* Tamanho ajustável */
+  height: auto;
+}
+/* ===== NOVO MASCOTE GIF FIM ===== */
+	
+	    /* ===== RESPONSIVE ===== */
+	    @media (max-width: 880px) {
+      .hero {
         grid-template-columns: 1fr;
       }
-    }
 
-    /* ===== Botão Flutuante do Carrinho ===== */
-    .floating-cart {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 998;
-    }
+      .hero-right img {
+        height: 220px;
+      }
 
-    #openCartBtn {
-      background-color: var(--accent);
-      color: #000;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
-      transition: all 0.3s ease;
-    }
+      nav {
+        display: none;
+      }
 
-    #openCartBtn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(0, 255, 0, 0.6);
-    }
+      .hero h2 {
+        font-size: 28px;
+      }
 
-    #cart-count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background-color: #ff0000;
-      color: #fff;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .benefits {
+        flex-direction: column;
+      }
 
-    /* ===== MASCOTE ===== */
-    .mascote-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      width: 150px;
-      height: 150px;
-    }
+      .benefit {
+        min-width: auto;
+      }
 
-    .mascote-gif {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+      .cart-panel {
+        width: 90vw;
+        right: 5vw;
+      }
 
-    .mascote-gif:hover {
-      transform: scale(1.1);
-    }
+      footer-content {
+        flex-direction: column;
+      }
 
-    .balao-fala {
-      position: absolute;
-      bottom: 160px; /* Acima do mascote */
-      right: 0;
-      background-color: #fff;
-      color: #000;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 250px;
-      font-size: 14px;
-      line-height: 1.4;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 1001;
+      footer-contact {
+        text-align: left;
+      }
     }
-
-    .balao-fala.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .balao-fala::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      right: 20px;
-      border-width: 10px;
-      border-style: solid;
-      border-color: #fff transparent transparent transparent;
-    }
-
-    /* ===== ÁLBUM DE FOTOS DESTAQUES ===== */
-    .album-destaques {
-      padding: 40px 0;
-    }
-
-    .album-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .album-card {
-      background: var(--glass);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s ease;
-    }
-
-    .album-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(0, 255, 0, 0.4);
-    }
-
-    .album-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-
-    .album-card-body {
-      padding: 18px;
-    }
-
-    .album-card-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0 0 8px;
-    }
-
-    .album-card-text {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
   </style>
 </head>
 <body>
-
   <div class="container">
+    <!-- ===== HEADER ===== -->
     <header>
       <div class="brand">
-        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/OLsqyffXNLzBRfhq.webp" alt="LUPA STYLLE Logo" />
+        <img src="./imageslogo.jpg" alt="Logo LUPA STYLLE - Óculos Premium com Visão Blindada 360°" />
         <div>
           <h1>LUPA STYLLE</h1>
-          <p class="brand-subtitle">VISÃO BLINDADA 360° — Estilo & Proteção</p>
+          <div class="brand-subtitle">VISÃO BLINDADA 360° — Estilo & Proteção</div>
         </div>
       </div>
       <nav>
-        <a href="#destaques">Destaques</a>
-        <a href="#novidades">Novidades</a>
+        <a href="#fotos">Destaques</a>
+        <a href="#lancamentos">Novidades</a>
         <a href="#protocolo">Protocolo</a>
-        <a href="#" class="cta">Compre agora</a>
+        <a class="cta" href="#ofertas">Compre agora</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero-full">
-        <div class="hero-image-top">
-          <video src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qYjBxavZIwWKdIpf.mp4" autoplay loop muted playsinline></video>
-        </div>
-        <div class="hero-content">
-          <p class="eyebrow">PROTOCOLO VISÃO BLINDADA 360°</p>
-          <h2>Seu Estilo com Máxima Proteção. Qualidade Premium Garantida.</h2>
-          <p>Na LUPA STYLLE, cada par de óculos passa pelo nosso rigoroso Protocolo Visão Blindada 360°. Garantimos não apenas um estilo incomparável, mas uma verdadeira armadura para seus olhos. Lentes com 7 camadas de proteção UV, resistência a impactos e um design anatômico que redefine o conforto.</p>
-          <a href="#" class="cta">Ver Coleção Completa</a>
-        </div>
-      </section>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-full">
+      <!-- Vídeo do Cientista no Topo -->
+      <div class="hero-image-top">
+        <video autoplay loop muted playsinline src="./banner_animado.mp4" alt="Banner LUPA STYLLE - Protocolo Visão Blindada 360° com proteção UV e resistência a impacto" style="width: 100%; height: auto; object-fit: cover; border-radius: 12px;"></video>
+      </div>
 
-      <section class="benefits">
+      <!-- Conteúdo Abaixo da Imagem -->
+      <div class="hero-content">
+        <div class="eyebrow">⚡ Tecnologia Exclusiva</div>
+        <h2>Os Únicos Óculos do Brasil com o Protocolo Visão Blindada 360°</h2>
+        <p>Enquanto outras lojas vendem réplicas, nós entregamos proteção e estilo. Cada peça é inspecionada em nosso laboratório para garantir resistência a impactos, proteção UV real e conforto anatômico. Isso não é só um óculos, é um LUPA STYLLE.</p>
+        <span class="badge">✓ Estoque no Brasil • ✓ Fotos Reais • ✓ Envio Imediato</span>
+
+        <div class="benefits" style="margin-top: 24px;">
+          <div class="benefit">
+            <div class="benefit-icon">🚚</div>
+            <span class="benefit-title">Entrega Rápida</span>
+            <span class="benefit-desc">Estoque próprio</span>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">📸</div>
+            <span class="benefit-title">Fotos Reais</span>
+            <span class="benefit-desc">Você vê antes de receber</span>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">💬</div>
+            <span class="benefit-title">Suporte</span>
+            <span class="benefit-desc">WhatsApp & Troca Fácil</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROVA SOCIAL ===== -->
+    <div class="social-proof">
+      ✓ <strong>1.247 pessoas</strong> compraram este mês | <strong>89 pessoas</strong> estão vendo agora
+    </div>
+
+
+
+    <!-- ===== OFERTAS/PROMOÇÕES ===== -->
+    <section id="ofertas" class="section">
+      <div class="section-title">
+        <h2>🔥 Ofertas & Promoções</h2>
+        <p>Aproveite descontos imperdíveis em produtos selecionados</p>
+      </div>
+      <div class="grid" id="promoGrid"></div>
+    </section>
+
+
+
+    <!-- ===== FOTOS/DESTAQUES ===== -->
+    <section id="fotos" class="section">
+      <div class="section-title">
+        <h2>📸 Fotos & Destaques</h2>
+        <p>Confira nossos produtos mais procurados com fotos reais</p>
+      </div>
+      <div class="grid" id="productsGrid"></div>
+    </section>
+
+    <!-- ===== ACESSÓRIOS ===== -->
+    <section id="acessorios" class="section">
+      <div class="section-title">
+        <h2>🎨 Acessórios Premium</h2>
+        <p>Complemente seu estilo com acessórios exclusivos</p>
+      </div>
+      <div class="grid" id="acessoriosGrid"></div>
+    </section>
+
+    <!-- ===== LANÇAMENTOS ===== -->
+    <section id="lancamentos" class="section">
+      <div class="section-title">
+        <h2>⭐ Lançamentos</h2>
+        <p>Novos modelos chegando com a tecnologia Visão Blindada 360°</p>
+      </div>
+      <div class="grid" id="novidadesGrid"></div>
+    </section>
+
+    <!-- ===== PROTOCOLO VISAO BLINDADA 360 ===== -->
+    <section id="protocolo" class="section">
+      <div class="section-title">
+        <h1>🔬 Protocolo Visão Blindada 360°</h1>
+      </div>
+      <p style="margin-bottom: 24px; font-size: 16px;">Todo óculos LUPA STYLLE passa por 4 testes rigorosos de qualidade em nosso laboratório. Veja por que somos diferentes:</p>
+
+      <div class="benefits">
         <div class="benefit">
           <div class="benefit-icon">🛡️</div>
-          <h3>Resistência a Impacto</h3>
-          <p>Lentes e armações que aguentam o seu ritmo. Testado em laboratório para durar.</p>
+          <span class="benefit-title">Prova de Impacto</span>
+          <span class="benefit-desc">Lentes e armações testadas para aguentar o uso intenso do dia a dia. Menos preocupação, mais durabilidade.</span>
         </div>
         <div class="benefit">
           <div class="benefit-icon">☀️</div>
-          <h3>Proteção UV400 Real</h3>
-          <p>Nossas 7 camadas de proteção bloqueiam 100% dos raios UVA e UVB. Sua visão segura.</p>
+          <span class="benefit-title">Proteção UV400 Real</span>
+          <span class="benefit-desc">Validamos com equipamento profissional se a proteção UV é 400. Seus olhos blindados contra os raios solares.</span>
         </div>
         <div class="benefit">
-          <div class="benefit-icon">👓</div>
-          <h3>Conforto Anatômico</h3>
-          <p>Design leve e ergonômico para você usar o dia todo, sem incômodos.</p>
+          <div class="benefit-icon">🔧</div>
+          <span class="benefit-title">Montagem Firme</span>
+          <span class="benefit-desc">Checamos cada parafuso e encaixe. Nossos óculos têm a firmeza e o ajuste que você espera de um produto premium.</span>
         </div>
-      </section>
-
-      <section id="destaques" class="album-destaques">
-        <div class="section-title">
-          <h2>Álbum de Fotos dos Destaques</h2>
-          <p>Veja por que nossos clientes confiam na Visão Blindada 360°.</p>
+        <div class="benefit">
+          <div class="benefit-icon">😊</div>
+          <span class="benefit-title">Conforto Anatômico</span>
+          <span class="benefit-desc">O encaixe no rosto é perfeito. Leveza e design pensados para você usar por horas sem desconforto.</span>
         </div>
-        <div class="album-grid">
-          <div class="album-card">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/UbzfcvOjXLJmqxBU.webp" alt="Cliente com Óculos LUPA STYLLE em um evento" />
-            <div class="album-card-body">
-              <h3 class="album-card-title">Estilo em Qualquer Ocasião</h3>
-              <p class="album-card-text">Nossos óculos combinam com tudo, do casual ao formal.</p>
-            </div>
-          </div>
-          <div class="album-card">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/vMpfyGUXbLjNLMTw.webp" alt="Detalhe da lente de um óculos LUPA STYLLE" />
-            <div class="album-card-body">
-              <h3 class="album-card-title">Tecnologia em Cada Detalhe</h3>
-              <p class="album-card-text">As 7 camadas de proteção garantem a melhor performance.</p>
-            </div>
-          </div>
-          <div class="album-card">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/IEtzALhAMGQkkZkG.webp" alt="Pessoa praticando esportes com óculos LUPA STYLLE" />
-            <div class="album-card-body">
-              <h3 class="album-card-title">Feito para a Ação</h3>
-              <p class="album-card-text">Resistência e conforto para acompanhar seu ritmo.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="novidades">
-        <div class="section-title">
-          <h2>Novidades</h2>
-          <p>Confira os últimos lançamentos saídos do nosso laboratório.</p>
-        </div>
-        <div id="novidadesGrid" class="grid"></div>
-      </section>
-
-      <section id="protocolo" class="protocolo-section">
-        <div class="protocolo-content">
-          <div class="section-title">
-            <h2>O Protocolo Visão Blindada 360°</h2>
-            <p>A ciência por trás da sua proteção.</p>
-          </div>
-          <ul class="protocolo-list">
-            <li><strong>TESTE DE RESISTÊNCIA:</strong> Nossas armações e lentes são submetidas a testes de impacto e torção para garantir durabilidade máxima.</li>
-            <li><strong>VERIFICAÇÃO UV400:</strong> Cada lente é inspecionada com espectrômetro para certificar o bloqueio de 100% dos raios UVA e UVB.</li>
-            <li><strong>CONFORTO ANATÔMICO:</strong> O design é validado por especialistas para garantir um encaixe perfeito e confortável por longas horas.</li>
-            <li><strong>QUALIDADE PREMIUM:</strong> Usamos apenas materiais de alta performance, selecionados por nossa equipe de especialistas.</li>
-          </ul>
-        </div>
-        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/RwxxMDGKZkJbDVmk.webp" alt="Infográfico do Protocolo Visão Blindada 360°" />
-      </section>
-
-    </main>
-
+    <!-- ===== FOOTER ===== -->
     <footer>
-      <p>&copy; 2024 LUPA STYLLE. Todos os direitos reservados.</p>
+      <footer-content>
+        <div>
+          <strong>LUPA STYLLE</strong>
+          <footer-desc>Loja especializada em óculos com tecnologia VISÃO BLINDADA 360°. Selecionamos os melhores modelos e garantimos a qualidade que você merece. Enviamos para todo o Brasil.</footer-desc>
+        </div>
+        <footer-contact>
+          <footer-contact-label>Atendimento</footer-contact-label>
+          <footer-contact-value>WhatsApp: <span id="wa-number">(12) 99730-1273</span></footer-contact-value>
+          <footer-contact-label style="margin-top: 12px;">Pagamento via PIX • Entrega Rápida</footer-contact-label>
+        </footer-contact>
+      </footer-content>
     </footer>
   </div>
 
-  <div class="cart-overlay">
-    <div class="cart">
-      <div class="cart-header">
-        <h3>Meu Carrinho</h3>
-        <button id="closeCart">&times;</button>
-      </div>
-      <div class="cart-body"></div>
-      <div class="cart-footer">
-        <div class="cart-total">
-          <span>Total:</span>
-          <span id="totalPrice">R$ 0,00</span>
-        </div>
-        <button class="checkout">Finalizar Compra</button>
-      </div>
-    </div>
+  <!-- ===== WHATSAPP FLUTUANTE ===== -->
+  <a href="https://wa.me/5512997301273?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20óculos%20LUPA%20STYTLLE%20com%20Protocolo%20Visão%20Blindada%20360°" class="whatsapp-float" target="_blank" title="Fale conosco no WhatsApp">💬</a>
+
+  <!-- ===== CART & WHATSAPP ===== -->
+  <button class="cart-btn" id="openCart">🛒 Carrinho (0)</button>
+  <div class="cart-panel" id="cartPanel">
+    <h4>Seu Pedido</h4>
+    <div id="cartList"></div>
+    <div class="cart-total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+    <a id="checkoutWa" class="whatsapp-btn" href="#">✓ Finalizar pelo WhatsApp</a>
   </div>
 
-  <div class="floating-cart">
-    <button id="openCartBtn">
-      🛒
-      <span id="cart-count">0</span>
-    </button>
-  </div>
-
-  <div class="mascote-container">
-    <div id="balao-fala" class="balao-fala"></div>
-    <img id="mascote-gif" class="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Mascote Cientista Maluco LUPA STYLLE Animado" />
-  </div>
-
-  <script src="./data.js"></script>
+  <script src="data.js"></script>
   <script>
-    // ========== RENDERIZAÇÃO DOS PRODUTOS ==========
-    function renderProducts(products, gridId) {
-      const grid = document.getElementById(gridId);
-      if (!grid) return;
-      products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">${product.name}</h3>
-            <div class="card-price">
-              ${product.price.toFixed(2).replace('.', ',')}
-              ${product.oldPrice ? `<span class="old-price">R$ ${product.oldPrice.toFixed(2).replace('.', ',')}</span>` : ''}
-            </div>
-            <div class="card-colors">
-              ${product.colors.map(color => `<div class="color-swatch" style="background-color: ${color};" title="${color}"></div>`).join('')}
-            </div>
-            <div class="card-actions">
-              <button class="buy" data-id="${product.id}">Adicionar ao Carrinho</button>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+
+
+    // ========== FUNÇÕES AUXILIARES ==========
+    function moneyBR(val) {
+      return 'R$ ' + val.toFixed(2).replace('.', ',');
     }
 
-    // ========== LÓGICA DO CARRINHO ==========
+    function renderCard(p) {
+      const discount = Math.round(((p.old - p.price) / p.old) * 100);
+      return `
+        <div class="card" data-id="${p.id}">
+          <img src="${p.img}" alt="${p.title} - Óculos Premium LUPA STYLLE com Protocolo Visão Blindada 360°" loading="lazy">
+          <div style="position: relative;">
+            <div style="position: absolute; top: -8px; right: 0; background: var(--accent); color: #000; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px;">-${discount}%</div>
+            <div class="card-title">${p.title}</div>
+            <div class="price">
+              <div class="old">${moneyBR(p.old)}</div>
+              <div class="now">${moneyBR(p.price)}</div>
+            </div>
+            <a class="buy" href="#" data-id="${p.id}">Comprar</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // ========== POPULAR AS GRIDS ==========
+    const grid = document.getElementById('productsGrid');
+    const acessoriosGrid = document.getElementById('acessoriosGrid');
+    const novGrid = document.getElementById('novidadesGrid');
+    const promoGrid = document.getElementById('promoGrid');
+
+    grid.innerHTML = products.filter(p => p.category === 'destaque').map(renderCard).join('');
+    acessoriosGrid.innerHTML = products.filter(p => p.category === 'acessorio').map(renderCard).join('');
+    promoGrid.innerHTML = products.filter(p => p.category === 'promocao').map(renderCard).join('');
+    novGrid.innerHTML = products.filter(p => p.category === 'novidade').map(renderCard).join('');
+
+    // ========== CARRINHO ==========
     let cart = [];
+    const openCart = document.getElementById('openCart');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartList = document.getElementById('cartList');
+    const cartTotalSpan = document.getElementById('cartTotal');
+    const checkoutWa = document.getElementById('checkoutWa');
 
-    function updateCart() {
-      const cartBody = document.querySelector('.cart-body');
-      const totalPriceEl = document.getElementById('totalPrice');
-      const cartCountEl = document.getElementById('cart-count');
-      cartBody.innerHTML = '';
-      let total = 0;
+    function updateCartUI() {
+      const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('openCart').innerText = `🛒 Carrinho (${totalItems})`;
 
-      cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
+      cartList.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img src="${item.img}" />
           <div class="cart-item-info">
-            <h4>${item.name}</h4>
-            <p>R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+            <div class="cart-item-title">${item.title}</div>
+            <div class="cart-item-price">${moneyBR(item.price)} x ${item.qty}</div>
           </div>
-        `;
-        cartBody.appendChild(cartItem);
-        total += item.price;
-      });
+          <div class="cart-item-controls">
+            <button onclick="changeQty(${item.id}, -1)">−</button>
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
 
-      totalPriceEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-      cartCountEl.innerText = cart.length;
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      cartTotalSpan.innerText = moneyBR(total);
+
+      // Build WhatsApp link
+      const waNumber = document.getElementById('wa-number').innerText.replace(/[^0-9]/g, '');
+      const itemsText = cart.map(i => `${i.qty}x ${i.title} - R$ ${i.price.toFixed(2)}`).join('%0A');
+      const text = encodeURIComponent(`Olá! Quero finalizar meu pedido na LUPA STYLLE:%0A${itemsText}%0ATotal: R$ ${total.toFixed(2)}`);
+      checkoutWa.href = `https://wa.me/${waNumber}?text=${text}`;
+      checkoutWa.target = '_blank';
     }
 
-    function addToCart(productId) {
-      const product = [...products.novidades, ...products.destaques, ...products.acessorios].find(p => p.id === productId);
-      if (product) {
-        cart.push(product);
-        updateCart();
-        openCart();
+    function addToCart(id) {
+      const p = products.find(x => x.id == id);
+      const existing = cart.find(x => x.id == id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...p, qty: 1 });
       }
+      updateCartUI();
+      cartPanel.style.display = 'block';
     }
 
-    function openCart() {
-      document.querySelector('.cart-overlay').classList.add('open');
-      document.querySelector('.cart').classList.add('open');
+    function changeQty(id, delta) {
+      const idx = cart.findIndex(x => x.id == id);
+      if (idx > -1) {
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      }
+      updateCartUI();
     }
 
-    function closeCart() {
-      document.querySelector('.cart-overlay').classList.remove('open');
-      document.querySelector('.cart').classList.remove('open');
+    // ========== EVENT LISTENERS ==========
+    // ========== TOAST NOTIFICATION ==========
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
     }
 
-    // ========== INICIALIZAÇÃO E EVENTOS ==========
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProducts(products.novidades, 'novidadesGrid');
-
-      document.addEventListener('click', e => {
-        if (e.target.classList.contains('buy')) {
-          const productId = e.target.getAttribute('data-id');
-          addToCart(productId);
-        }
-      });
-
-      document.getElementById('openCartBtn').addEventListener('click', openCart);
-      document.getElementById('closeCart').addEventListener('click', closeCart);
-      document.querySelector('.cart-overlay').addEventListener('click', closeCart);
-    });
-
-    // ========== ANIMAÇÃO DE CARDS AO CARREGAR ==========
-    const cards = document.querySelectorAll('.card');
-    cards.forEach((card, index) => {
-      card.style.animationDelay = (index * 0.1) + 's';
-    });
-
-    // ========== LÓGICA DO MASCOTE ANIMADO ==========
-    const MASCOTE_TIMINGS = [
-      { start: 0, duration: 5.00, message: "Bem-vindo(a) à LUPA STYLLE! Prepare-se para a **Visão Blindada 360°**." }, // TEKE 1
-      { start: 5.00, duration: 3.26, message: "Mais de 10.000 clientes já comprovaram a qualidade premium das nossas lentes!" }, // TEKE 2
-      { start: 8.26, duration: 4.00, message: "Você sabia? Nossas lentes possuem 7 camadas de proteção UV real. É ciência!" }, // TEKE 3
-      { start: 12.26, duration: 3.00, message: "Temos o modelo perfeito para você! Explore a variedade de cores e estilos." }, // TEKE 4
-      { start: 15.26, duration: 4.00, message: "Foco total na sua experiência. Estamos aqui para garantir sua melhor visão." }, // TEKE 5
-      { start: 19.26, duration: 3.00, message: "Pense na durabilidade. Nossos óculos são feitos para resistir ao seu dia a dia." }, // TEKE 6
-      { start: 22.26, duration: 4.00, message: "Não perca tempo! O futuro da sua visão começa agora. Clique e compre!" } // TEKE 7
-    ];
-
-    const balao = document.getElementById('balao-fala');
-    const mascoteGif = document.getElementById('mascote-gif');
-    let currentTimeout;
-
-    function showSpeechBubble(message) {
-      balao.innerHTML = message;
-      balao.classList.add('show');
+    // ========== LOADING ANIMATION ==========
+    function addLoadingEffect(btn) {
+      btn.classList.add('loading');
+      const originalText = btn.textContent;
+      btn.innerHTML = '<span class="loading-spinner"></span>Adicionando...';
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.textContent = originalText;
+      }, 1200);
     }
 
-    function hideSpeechBubble() {
-      balao.classList.remove('show');
-    }
-
-    function scheduleSpeech() {
-      hideSpeechBubble();
-      clearTimeout(currentTimeout);
-
-      const gifTotalDuration = 26260; // Duração total do GIF em milissegundos
-      let accumulatedDelay = 0;
-
-      MASCOTE_TIMINGS.forEach(timing => {
+    document.body.addEventListener('click', function(e) {
+      if(e.target.matches('.buy')) {
+        e.preventDefault();
+        const id = parseInt(e.target.dataset.id, 10);
+        addLoadingEffect(e.target);
         setTimeout(() => {
-          showSpeechBubble(timing.message);
-          currentTimeout = setTimeout(hideSpeechBubble, (timing.duration * 1000) - 200); // Esconde um pouco antes da próxima fala
-        }, accumulatedDelay);
-        accumulatedDelay += timing.duration * 1000;
-      });
-
-      // Reinicia o ciclo
-      setTimeout(scheduleSpeech, gifTotalDuration);
-    }
-
-    mascoteGif.addEventListener('click', () => {
-      clearTimeout(currentTimeout);
-      showSpeechBubble("Opa! Não me assuste! Quer saber mais sobre o Protocolo Visão Blindada 360°?");
-      currentTimeout = setTimeout(scheduleSpeech, 5000); // Volta ao ciclo normal após 5s
+          addToCart(id);
+          showToast('Produto adicionado ao carrinho!');
+        }, 1200);
+      }
     });
 
-    // Inicia o ciclo de falas
-    setTimeout(scheduleSpeech, 2000); // Começa após 2 segundos
+    openCart.addEventListener('click', function() {
+      cartPanel.style.display = cartPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // ========== INICIALIZACAO ==========
+    document.getElementById('wa-number').innerText = '5512997301273';
+    updateCartUI();
+
+	    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) - REMOVIDO PARA MAIOR REALISMO ==========
+	    // O elemento .social-proof agora é estático, refletindo os números iniciais do HTML.
+	    // Para atualizar, edite o HTML diretamente na linha 989.
+
+    // ========== PARALLAX SUAVE NO BANNER ==========
+    const heroRight = document.querySelector('.hero-right img');
+    if(heroRight) {
+      window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        const parallaxValue = scrollPosition * 0.3;
+        heroRight.style.transform = 'translateY(' + parallaxValue + 'px) translateZ(0)';
+      });
+    }
+
+	    // ========== ANIMACAO DE CARDS AO CARREGAR ==========
+	    const cards = document.querySelectorAll('.card');
+	    cards.forEach((card, index) => {
+	      card.style.animationDelay = (index * 0.1) + 's';
+	    });
+	
+	    // Efeito 3D/Parallax removido, substituído por vídeo animado.
+	
 
   </script>
-</body>
-</html>
+<!-- ===== NOVO MASCOTE GIF HTML ===== -->
+  <div id="new-mascote-gif">
+    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" style="width: 100%; height: auto;">
+  </div>
+	</body>
+	</html>
