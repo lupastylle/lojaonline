@@ -905,16 +905,77 @@
       background: #1fa857;
     }
 
-/* ===== NOVO MASCOTE GIF ===== */
-#new-mascote-gif {
+/* ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== */
+#mascote-container {
   position: fixed;
   bottom: 20px;
-  left: 20px; /* Canto esquerdo */
+  left: 20px;
   z-index: 10000;
-  width: 150px; /* Tamanho ajustável */
+  width: 150px; /* Tamanho do GIF */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#mascote-gif {
+  cursor: pointer;
+  position: relative;
+  z-index: 10001;
+  width: 100%;
   height: auto;
 }
-/* ===== NOVO MASCOTE GIF FIM ===== */
+
+#mascote-balao {
+  background: #fff;
+  color: #111;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 100%; /* Posiciona acima do mascote */
+  left: 0;
+  min-width: 200px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+#mascote-balao.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#mascote-balao::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 20px; /* Aponta para o mascote */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+#mascote-balao p {
+  margin: 0;
+}
+
+#mascote-fechar {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 12px;
+}
 	
 	    /* ===== RESPONSIVE ===== */
 	    @media (max-width: 880px) {
@@ -1247,9 +1308,166 @@
       cartPanel.style.display = cartPanel.style.display === 'block' ? 'none' : 'block';
     });
 
-    // ========== INICIALIZACAO ==========
-    document.getElementById('wa-number').innerText = '5512997301273';
-    updateCartUI();
+// ========== INICIALIZACAO ==========
+	    document.getElementById('wa-number').innerText = '5512997301273';
+	    updateCartUI();
+
+	    // ========== LÓGICA DO MASCOTE INTERATIVO ==========
+	    (function() {
+	      function falar(texto, tempo = 3000) {
+	        const balao = document.getElementById('mascote-balao');
+	        const p = document.getElementById('mascote-texto');
+	        if (!balao || !p) return;
+	        p.textContent = texto;
+	        balao.classList.add('visible');
+	        setTimeout(() => balao.classList.remove('visible'), tempo);
+	      }
+
+	      function animarMascote() {
+	        // A animação agora é o GIF, então apenas um pequeno efeito visual no clique
+	        const mascoteGif = document.getElementById('mascote-gif');
+	        if (mascoteGif) {
+	          mascoteGif.style.transform = 'scale(1.05)';
+	          setTimeout(() => mascoteGif.style.transform = 'scale(1)', 300);
+	        }
+	      }
+
+	      function saudacaoPorHorario() {
+	        const hora = new Date().getHours();
+	        const dia = new Date().getDay(); // 0 = domingo, 6 = sábado
+	        if (dia === 0 || dia === 6) {
+	          falar('Fim de semana! Aproveite para garantir seu estilo blindado 🕶️🔥', 5000);
+	        } else if (hora < 12) {
+	          falar('Bom dia! Pronto para escolher seu óculos blindado? ☀️', 5000);
+	        } else if (hora < 18) {
+	          falar('Boa tarde! Que tal turbinar seu estilo com proteção? 😎', 5000);
+	        } else {
+	          falar('Boa noite! Hora de garantir seu LUPA STYLLE com desconto 🌙', 5000);
+	        }
+	      }
+
+	      function bindEventosMascote() {
+	        const btnMascote = document.getElementById('mascote-gif');
+	        const btnFechar = document.getElementById('mascote-fechar');
+
+	        if (btnMascote) {
+	          btnMascote.addEventListener('click', () => {
+	            falar('Oi! Posso te ajudar a escolher seus óculos?', 5000);
+	            animarMascote();
+	          });
+	        }
+	        if (btnFechar) {
+	          btnFechar.addEventListener('click', () => document.getElementById('mascote-balao').classList.remove('visible'));
+	        }
+
+	        // Ociosidade + Produção de óculos
+	        let idleTimer;
+	        const resetIdle = () => {
+	          clearTimeout(idleTimer);
+	          idleTimer = setTimeout(() => {
+	            falar('Hmm... enquanto você pensa, vou montar um óculos blindado aqui 🧪', 5000);
+	            animarMascote();
+	          }, 30000);
+	        };
+	        ['mousemove','keydown','scroll','click','touchstart'].forEach(evt =>
+	          document.addEventListener(evt, resetIdle, { passive: true })
+	        );
+	        resetIdle();
+
+	        // Intervenção após 15s na seção de produtos (simulando visualização de produto)
+	        let productTimer;
+	        const productSection = document.getElementById('productsGrid');
+	        const promoSection = document.getElementById('promoGrid');
+	        const acessoriosSection = document.getElementById('acessoriosGrid');
+	        const lancamentosSection = document.getElementById('novidadesGrid');
+
+	        const checkProductView = () => {
+	          const sections = [productSection, promoSection, acessoriosSection, lancamentosSection];
+	          const isViewingProduct = sections.some(section => {
+	            if (!section) return false;
+	            const rect = section.getBoundingClientRect();
+	            return rect.top < window.innerHeight && rect.bottom >= 0;
+	          });
+
+	          if (isViewingProduct) {
+	            clearTimeout(productTimer);
+	            productTimer = setTimeout(() => {
+	              falar("Vi que você gostou desse modelo! Ele é um dos mais resistentes. Quer ver um vídeo de teste de impacto?", 6000);
+	              animarMascote();
+	            }, 15000); // 15 segundos
+	          } else {
+	            clearTimeout(productTimer);
+	          }
+	        };
+
+	        document.addEventListener('scroll', checkProductView, { passive: true });
+	        checkProductView(); // Verifica ao carregar
+
+	        // Intervenção contextual por seção
+	        const sectionsToWatch = [
+	          { id: 'ofertas', fala: "Fique de olho! Esses modelos estão com o Protocolo Blindado ativado e o preço desativado! 💥" },
+	          { id: 'fotos', fala: "Esses são os óculos que mais saem do meu laboratório! Quer saber por que são os favoritos?" },
+	          { id: 'acessorios', fala: "Não esqueça! Acessórios são o toque final para a sua Visão Blindada. 🧪" },
+	          { id: 'protocolo', fala: "Aqui é onde a mágica acontece! Eu garanto a qualidade de cada lente no meu laboratório. A proteção UV400 é real e testada! 🧪" }
+	        ];
+	        let spokenSections = {};
+
+	        const checkSectionView = () => {
+	          sectionsToWatch.forEach(section => {
+	            const el = document.getElementById(section.id);
+	            if (!el || spokenSections[section.id]) return;
+
+	            const rect = el.getBoundingClientRect();
+	            const isVisible = rect.top < window.innerHeight * 0.75 && rect.bottom >= window.innerHeight * 0.25;
+
+	            if (isVisible) {
+	              falar(section.fala, 6000); // Fala por 6 segundos
+	              spokenSections[section.id] = true; // Marca como falado
+	            }
+	          });
+	        };
+
+	        document.addEventListener('scroll', checkSectionView, { passive: true });
+	        checkSectionView(); // Verifica ao carregar
+
+	        // Intenção de saída
+	        document.addEventListener('mouseleave', (e) => {
+	          if (e.clientY <= 0) {
+	            const cartElement = document.querySelector('#openCart');
+	            const cartCountMatch = cartElement ? cartElement.innerText.match(/\d+/) : null;
+	            const cartCount = cartCountMatch ? parseInt(cartCountMatch[0], 10) : 0;
+
+	            if (cartCount > 0) {
+	              falar('Ei! Não vá embora! Se precisar de ajuda com o frete ou tiver alguma dúvida, estou aqui. Posso te dar uma dica?', 6000);
+	            } else {
+	              falar('Antes de sair, saiba que o frete é grátis para todo o Brasil! Não perca! 🚚', 6000);
+	            }
+	          }
+	        });
+
+	        // Resposta ao adicionar produto ao carrinho (Integrado com a lógica existente)
+	        document.body.addEventListener('click', function(e) {
+	          if(e.target.matches('.buy')) {
+	            setTimeout(() => {
+	              falar('Boa escolha! Esse modelo vai te deixar com visão blindada 👓✨', 5000);
+	              animarMascote();
+
+	              // Verificar se carrinho está cheio
+	              const totalItems = document.querySelector('#openCart').innerText.match(/\d+/);
+	              if(totalItems && parseInt(totalItems[0],10) >= 3) { // Alterado para >= 3 para ser mais inclusivo
+	                falar('Uau! Carrinho cheio! Você está montando uma coleção blindada 🛒🔥', 4000);
+	                animarMascote();
+	              }
+	            }, 1500);
+	          }
+	        });
+	      }
+
+	      document.addEventListener('DOMContentLoaded', function() {
+	        bindEventosMascote();
+	        setTimeout(() => saudacaoPorHorario(), 1200);
+	      });
+	    })();
 
 	    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) - REMOVIDO PARA MAIOR REALISMO ==========
 	    // O elemento .social-proof agora é estático, refletindo os números iniciais do HTML.
@@ -1275,9 +1493,13 @@
 	
 
   </script>
-<!-- ===== NOVO MASCOTE GIF HTML ===== -->
-  <div id="new-mascote-gif">
-    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" style="width: 100%; height: auto;">
+<!-- ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== -->
+  <div id="mascote-container">
+    <div id="mascote-balao">
+      <p id="mascote-texto"></p>
+      <button id="mascote-fechar">×</button>
+    </div>
+    <img id="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" />
   </div>
 	</body>
 	</html>
