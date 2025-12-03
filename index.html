@@ -913,9 +913,6 @@
   z-index: 10000;
   width: 150px; /* Tamanho do GIF */
   height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 #mascote-gif {
@@ -924,6 +921,8 @@
   z-index: 10001;
   width: 100%;
   height: auto;
+  mix-blend-mode: screen; /* Para remover o fundo preto */
+  filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Para manter o efeito de sombra verde */
 }
 
 #mascote-balao {
@@ -935,12 +934,13 @@
   margin-bottom: 10px;
   position: absolute;
   bottom: 100%; /* Posiciona acima do mascote */
-  left: 0;
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Ajuste para centralizar */
   min-width: 200px;
+  max-width: 90vw; /* Limita a largura para não sair da tela em mobile */
   font-size: 14px;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(10px);
   pointer-events: none;
 }
 
@@ -953,13 +953,14 @@
 #mascote-balao::after {
   content: '';
   position: absolute;
-  bottom: -10px;
-  left: 20px; /* Aponta para o mascote */
+  bottom: -10px; /* Aponta para baixo */
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #fff;
+  border-top: 10px solid #fff; /* Triângulo apontando para baixo */
 }
 
 #mascote-balao p {
@@ -1495,11 +1496,11 @@
   </script>
 <!-- ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== -->
   <div id="mascote-container">
+    <img id="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" />
     <div id="mascote-balao">
       <p id="mascote-texto"></p>
       <button id="mascote-fechar">×</button>
     </div>
-    <img id="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" />
   </div>
 	</body>
 	</html>
