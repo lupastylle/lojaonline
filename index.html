@@ -906,44 +906,51 @@
     }
 
 /* ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== */
-#mascote-container {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 10000;
-  width: 150px; /* Tamanho do GIF */
-  height: auto;
-}
+	#mascote-container {
+	  position: fixed;
+	  bottom: 20px;
+	  left: 20px;
+	  z-index: 10000;
+	  width: 150px; /* Tamanho do GIF */
+	  height: auto;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
 
-#mascote-gif {
-  cursor: pointer;
-  position: relative;
-  z-index: 10001;
-  width: 100%;
-  height: auto;
+	#mascote-gif {
+	  cursor: pointer;
+	  position: relative;
+	  z-index: 10001;
+	  width: 100%;
+	  height: auto;
+	  mix-blend-mode: screen;
+	  filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
+	  animation: mascoteBreath 4s ease-in-out infinite alternate;
+	}
+	
+	@keyframes mascoteBreath {
+	  from { transform: translateY(0); }
+	  to { transform: translateY(-8px); }
+	}
 
-  mix-blend-mode: screen; /* Para remover o fundo preto */
-  filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Para manter o efeito de sombra verde */
-}
-
-#mascote-balao {
-  background: #fff;
-  color: #111;
-  padding: 10px 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
-  position: absolute;
-  bottom: 100%; /* Posiciona acima do mascote */
-  left: 50%; /* Centraliza horizontalmente */
-  transform: translateX(-50%); /* Ajuste para centralizar */
-  min-width: 200px;
-  max-width: 90vw; /* Limita a largura para não sair da tela em mobile */
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
+	#mascote-balao {
+	  background: #fff;
+	  color: #111;
+	  padding: 12px 18px;
+	  border-radius: 12px;
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	  margin-bottom: 15px;
+	  position: relative;
+	  width: 220px; /* Largura fixa para melhor leitura */
+	  max-width: 85vw;
+	  font-size: 14px;
+	  line-height: 1.4;
+	  opacity: 0;
+	  transition: opacity 0.3s ease, transform 0.3s ease;
+	  pointer-events: none;
+	  z-index: 10002;
+	}
 
 #mascote-balao.visible {
   opacity: 1;
@@ -951,18 +958,18 @@
   pointer-events: auto;
 }
 
-#mascote-balao::after {
-  content: '';
-  position: absolute;
-  bottom: -10px; /* Aponta para baixo */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #fff; /* Triângulo apontando para baixo */
-}
+	#mascote-balao::after {
+	  content: '';
+	  position: absolute;
+	  bottom: -8px;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  width: 0;
+	  height: 0;
+	  border-left: 8px solid transparent;
+	  border-right: 8px solid transparent;
+	  border-top: 8px solid #fff;
+	}
 
 #mascote-balao p {
   margin: 0;
@@ -1465,10 +1472,28 @@
 	        });
 	      }
 
-	      document.addEventListener('DOMContentLoaded', function() {
-	        bindEventosMascote();
-	        setTimeout(() => saudacaoPorHorario(), 1200);
-	      });
+		      document.addEventListener('DOMContentLoaded', function() {
+		        bindEventosMascote();
+		        setTimeout(() => saudacaoPorHorario(), 1200);
+		
+		        // Lógica para iniciar a música após a primeira interação do usuário
+		        const music = document.getElementById('background-music');
+		        let musicStarted = false;
+		
+		        const startMusic = () => {
+		          if (!musicStarted && music) {
+		            music.volume = 0.3; // Volume suave
+		            music.play().then(() => {
+		              musicStarted = true;
+		              document.removeEventListener('click', startMusic);
+		              document.removeEventListener('touchstart', startMusic);
+		            }).catch(error => console.log("Autoplay bloqueado pelo navegador."));
+		          }
+		        };
+		
+		        document.addEventListener('click', startMusic, { once: true });
+		        document.addEventListener('touchstart', startMusic, { once: true });
+		      });
 	    })();
 
 	    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) - REMOVIDO PARA MAIOR REALISMO ==========
@@ -1495,13 +1520,19 @@
 	
 
   </script>
-<!-- ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== -->
-  <div id="mascote-container">
-    <img id="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" />
-    <div id="mascote-balao">
-      <p id="mascote-texto"></p>
-      <button id="mascote-fechar">×</button>
-    </div>
-  </div>
+	<!-- ===== MÚSICA DE FUNDO (Inicia no primeiro clique) ===== -->
+	  <audio id="background-music" loop>
+	    <source src="musica.mp3" type="audio/mpeg">
+	    Seu navegador não suporta o elemento de áudio.
+	  </audio>
+	
+	  <!-- ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== -->
+	  <div id="mascote-container">
+	    <div id="mascote-balao">
+	      <p id="mascote-texto"></p>
+	      <button id="mascote-fechar">×</button>
+	    </div>
+	    <img id="mascote-gif" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663234531213/qOlXRkPJbgtpiKsr.gif" alt="Novo Mascote Animado" />
+	  </div>
 	</body>
 	</html>
