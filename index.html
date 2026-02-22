@@ -38,6 +38,18 @@
   {"@context":"https://schema.org","@type":"Organization","name":"LUPA STYLLE","url":"https://peaceful-baklava-57a81e.netlify.app/","logo":"https://peaceful-baklava-57a81e.netlify.app/imageslogo.jpg","description":"Loja especializada em oculos com Protocolo Visao Blindada 360. Qualidade premium, protecao UV real e conforto anatomico.","contactPoint":{"@type":"ContactPoint","contactType":"Customer Service","telephone":"+55-12-99730-1273"}}
   </script>
   <style>
+    /* ===== BARRA DE FRETE GRÁTIS ===== */
+    .top-bar {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--accent);
+    }
+
     :root {
       --bg: #0b0b0b;
       --card: #ffffff;
@@ -73,11 +85,74 @@
 
     /* ===== HEADER ===== */
     header {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
+      gap: 20px;
       padding: 18px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+      .search-container {
+        grid-row: 2;
+        grid-column: 1 / span 2;
+        width: 100%;
+      }
+    }
+
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 12px 45px 12px 20px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--glass);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-container input:focus {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-icon {
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .header-icon:hover {
+      color: var(--accent);
     }
 
     .brand {
@@ -98,6 +173,12 @@
       font-size: 20px;
       letter-spacing: 1px;
       color: var(--accent);
+    }
+
+    @media (max-width: 480px) {
+      .brand-text-desktop {
+        display: none;
+      }
     }
 
     .brand-subtitle {
@@ -520,6 +601,34 @@
 
 
 
+    .album-card {
+      background: var(--glass);
+      border: 1px solid rgba(0, 255, 0, 0.1);
+      border-radius: 10px;
+      padding: 12px;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+    }
+
+    .album-card:hover {
+      background: rgba(0, 255, 0, 0.05);
+      border-color: rgba(0, 255, 0, 0.3);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 255, 0, 0.15);
+    }
+
+    .album-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .album-card:hover img {
+      transform: scale(1.05);
+    }
+
     .card img {
       width: 100%;
       height: 180px;
@@ -662,20 +771,35 @@
 
     /* ===== PROVA SOCIAL ===== */
     .social-proof {
-      background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
-      border: 1px solid rgba(0, 255, 0, 0.2);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin: 16px 0;
+      background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), rgba(0, 255, 0, 0.02));
+      border: 1px solid rgba(0, 255, 0, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 40px auto;
       text-align: center;
-      font-size: 14px;
+      font-size: 15px;
       color: #e6e6e6;
-      animation: slideIn 0.6s ease-out;
+      max-width: 700px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.8s ease-out;
     }
 
     .social-proof strong {
       color: var(--accent);
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 1.1em;
+    }
+
+    .social-proof span {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    @media (max-width: 600px) {
+      .social-proof span {
+        display: block;
+        margin: 10px 0;
+      }
     }
 
     @keyframes slideIn {
@@ -986,8 +1110,57 @@
   font-size: 12px;
 }
 	
-	    /* ===== RESPONSIVE ===== */
-	    @media (max-width: 880px) {
+    /* ===== COOKIE CONSENT ===== */
+    .cookie-consent {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      color: #000;
+      padding: 15px 25px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 20000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .cookie-consent p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .cookie-btn {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .cookie-btn:hover {
+      background: var(--accent-dark);
+    }
+
+    @media (max-width: 600px) {
+      .cookie-consent {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 880px) {
       .hero {
         grid-template-columns: 1fr;
       }
@@ -1028,130 +1201,136 @@
   </style>
 </head>
 <body>
+  <div class="top-bar">
+    🇧🇷 FRETE GRÁTIS P/ TODO BRASIL 🇧🇷
+  </div>
   <div class="container">
     <!-- ===== HEADER ===== -->
     <header>
       <div class="brand">
         <img src="./imageslogo.jpg" alt="Logo LUPA STYLLE - Óculos Premium com Visão Blindada 360°" />
-        <div>
+        <div class="brand-text-desktop">
           <h1>LUPA STYLLE</h1>
-          <div class="brand-subtitle">VISÃO BLINDADA 360° — Estilo & Proteção</div>
+          <div class="brand-subtitle">VISÃO BLINDADA 360°</div>
         </div>
       </div>
-      <nav>
-        <a href="#fotos">Destaques</a>
-        <a href="#lancamentos">Novidades</a>
-        <a href="#protocolo">Protocolo</a>
-        <a class="cta" href="#ofertas">Compre agora</a>
-      </nav>
+
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="O que você está buscando?">
+        <div class="search-icon">🔍</div>
+      </div>
+
+      <div class="header-actions">
+        <div class="header-icon" title="Meus Pedidos">🚚</div>
+        <div class="header-icon" id="cartIcon" title="Carrinho">🛒</div>
+      </div>
     </header>
 
-    <!-- ===== HERO SECTION ===== -->
+    <!-- ===== HERO SECTION (VÍDEO NO TOPO) ===== -->
     <section class="hero-full">
-      <!-- Vídeo do Cientista no Topo -->
       <div class="hero-image-top">
-        <video autoplay loop muted playsinline src="./banner_animado.mp4" alt="Banner LUPA STYLLE - Protocolo Visão Blindada 360° com proteção UV e resistência a impacto" style="width: 100%; height: auto; object-fit: cover; border-radius: 12px;"></video>
+        <video autoplay loop muted playsinline src="./banner_animado.mp4" alt="Banner LUPA STYLLE" style="width: 100%; height: auto; object-fit: cover; border-radius: 12px;"></video>
+      </div>
+    </section>
+
+
+
+    <!-- ===== MAIS VENDIDAS ===== -->
+    <section id="maisVendidas" class="section">
+      <div class="section-title">
+        <h2>🔥 MAIS VENDIDAS</h2>
+        <p>Os modelos mais procurados com as melhores ofertas</p>
+      </div>
+      <div class="grid" id="maisVendidasGrid"></div>
+    </section>
+
+
+
+    <!-- ===== RADAR PREMIUM ===== -->
+    <section id="radarPremium" class="section">
+      <div class="section-title">
+        <h2>RADAR PREMIUM DE R$350 POR R$199,99</h2>
+        <p>Proteção máxima com o melhor preço</p>
+      </div>
+      <div class="grid" id="radarPremiumGrid"></div>
+    </section>
+
+    <!-- ===== JULIETE DISPONÍVEIS ===== -->
+    <section id="julietesDisponiveis" class="section">
+      <div class="section-title">
+        <h2>JULIETE DISPONÍVEIS</h2>
+        <p>Confira todas as variações do modelo clássico Juliete</p>
+      </div>
+      <div class="grid" id="julietesDisponiveisGrid"></div>
+    </section>
+
+    <!-- ===== NOVOS MODELOS ===== -->
+    <section id="novosModelos" class="section">
+      <div class="section-title">
+        <h2>⭐ NOVOS MODELOS</h2>
+        <p>Dartboard, Radar EV e Acessórios Premium</p>
+      </div>
+      <div class="grid" id="novosModelosGrid"></div>
+    </section>
+
+    <!-- ===== SEÇÃO DE AUTORIDADE E PROVA SOCIAL (FINAL DO SITE) ===== -->
+    <section class="section-authority" style="margin-top: 60px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+      <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+        <div class="eyebrow">⚡ Tecnologia Exclusiva</div>
+        <h2 style="font-size: 32px; margin-bottom: 20px;">Os Únicos Óculos do Brasil com o Protocolo Visão Blindada 360°</h2>
+        <p style="font-size: 16px; color: var(--muted); line-height: 1.6;">Enquanto outras lojas vendem réplicas, nós entregamos proteção e estilo. Cada peça é inspecionada em nosso laboratório para garantir resistência a impactos, proteção UV real e conforto anatômico. Isso não é só um óculos, é um LUPA STYLLE.</p>
+        <div style="margin-top: 20px; font-weight: 700; color: var(--accent);">✓ Estoque no Brasil • ✓ Fotos Reais • ✓ Envio Imediato</div>
       </div>
 
-      <!-- Conteúdo Abaixo da Imagem -->
-      <div class="hero-content">
-        <div class="eyebrow">⚡ Tecnologia Exclusiva</div>
-        <h2>Os Únicos Óculos do Brasil com o Protocolo Visão Blindada 360°</h2>
-        <p>Enquanto outras lojas vendem réplicas, nós entregamos proteção e estilo. Cada peça é inspecionada em nosso laboratório para garantir resistência a impactos, proteção UV real e conforto anatômico. Isso não é só um óculos, é um LUPA STYLLE.</p>
-        <span class="badge">✓ Estoque no Brasil • ✓ Fotos Reais • ✓ Envio Imediato</span>
-
-        <div class="benefits" style="margin-top: 24px;">
-          <div class="benefit">
-            <div class="benefit-icon">🚚</div>
-            <span class="benefit-title">Entrega Rápida</span>
-            <span class="benefit-desc">Estoque próprio</span>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon">📸</div>
-            <span class="benefit-title">Fotos Reais</span>
-            <span class="benefit-desc">Você vê antes de receber</span>
-          </div>
-          <div class="benefit">
-            <div class="benefit-icon">💬</div>
-            <span class="benefit-title">Suporte</span>
-            <span class="benefit-desc">WhatsApp & Troca Fácil</span>
-          </div>
+      <div class="benefits" style="margin-bottom: 40px;">
+        <div class="benefit">
+          <div class="benefit-icon">🚚</div>
+          <span class="benefit-title">Entrega Rápida</span>
+          <span class="benefit-desc">Estoque próprio</span>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">📸</div>
+          <span class="benefit-title">Fotos Reais</span>
+          <span class="benefit-desc">Você vê antes de receber</span>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">💬</div>
+          <span class="benefit-title">Suporte</span>
+          <span class="benefit-desc">WhatsApp & Troca Fácil</span>
         </div>
       </div>
-    </section>
 
-    <!-- ===== PROVA SOCIAL ===== -->
-    <div class="social-proof">
-      ✓ <strong>1.247 pessoas</strong> compraram este mês | <strong>89 pessoas</strong> estão vendo agora
-    </div>
-
-
-
-    <!-- ===== OFERTAS/PROMOÇÕES ===== -->
-    <section id="ofertas" class="section">
-      <div class="section-title">
-        <h2>🔥 Ofertas & Promoções</h2>
-        <p>Aproveite descontos imperdíveis em produtos selecionados</p>
+      <!-- PROVA SOCIAL DINÂMICA -->
+      <div class="social-proof" id="dynamicSocialProof" style="margin: 40px auto; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+        ✓ <strong id="buyersCount">582 pessoas</strong> compraram este mês | <strong id="viewersCount">19 pessoas</strong> estão vendo agora
       </div>
-      <div class="grid" id="promoGrid"></div>
-    </section>
 
-
-
-    <!-- ===== FOTOS/DESTAQUES ===== -->
-    <section id="fotos" class="section">
-      <div class="section-title">
-        <h2>📸 Fotos & Destaques</h2>
-        <p>Confira nossos produtos mais procurados com fotos reais</p>
+      <!-- PROTOCOLO VISAO BLINDADA 360 -->
+      <div id="protocolo" class="section-title" style="text-align: center; margin-top: 60px;">
+        <h2 style="font-size: 28px;">🔬 Protocolo Visão Blindada 360°</h2>
+        <p style="margin-top: 10px;">Todo óculos LUPA STYLLE passa por 4 testes rigorosos de qualidade em nosso laboratório.</p>
       </div>
-      <div class="grid" id="productsGrid"></div>
-    </section>
 
-    <!-- ===== ACESSÓRIOS ===== -->
-    <section id="acessorios" class="section">
-      <div class="section-title">
-        <h2>🎨 Acessórios Premium</h2>
-        <p>Complemente seu estilo com acessórios exclusivos</p>
-      </div>
-      <div class="grid" id="acessoriosGrid"></div>
-    </section>
-
-    <!-- ===== LANÇAMENTOS ===== -->
-    <section id="lancamentos" class="section">
-      <div class="section-title">
-        <h2>⭐ Lançamentos</h2>
-        <p>Novos modelos chegando com a tecnologia Visão Blindada 360°</p>
-      </div>
-      <div class="grid" id="novidadesGrid"></div>
-    </section>
-
-    <!-- ===== PROTOCOLO VISAO BLINDADA 360 ===== -->
-    <section id="protocolo" class="section">
-      <div class="section-title">
-        <h1>🔬 Protocolo Visão Blindada 360°</h1>
-      </div>
-      <p style="margin-bottom: 24px; font-size: 16px;">Todo óculos LUPA STYLLE passa por 4 testes rigorosos de qualidade em nosso laboratório. Veja por que somos diferentes:</p>
-
-      <div class="benefits">
+      <div class="benefits" style="margin-top: 30px;">
         <div class="benefit">
           <div class="benefit-icon">🛡️</div>
           <span class="benefit-title">Prova de Impacto</span>
-          <span class="benefit-desc">Lentes e armações testadas para aguentar o uso intenso do dia a dia. Menos preocupação, mais durabilidade.</span>
+          <span class="benefit-desc">Lentes e armações testadas para aguentar o uso intenso do dia a dia.</span>
         </div>
         <div class="benefit">
           <div class="benefit-icon">☀️</div>
           <span class="benefit-title">Proteção UV400 Real</span>
-          <span class="benefit-desc">Validamos com equipamento profissional se a proteção UV é 400. Seus olhos blindados contra os raios solares.</span>
+          <span class="benefit-desc">Validamos com equipamento profissional se a proteção UV é 400.</span>
         </div>
         <div class="benefit">
           <div class="benefit-icon">🔧</div>
           <span class="benefit-title">Montagem Firme</span>
-          <span class="benefit-desc">Checamos cada parafuso e encaixe. Nossos óculos têm a firmeza e o ajuste que você espera de um produto premium.</span>
+          <span class="benefit-desc">Checamos cada parafuso e encaixe para garantir firmeza e ajuste.</span>
         </div>
         <div class="benefit">
           <div class="benefit-icon">😊</div>
           <span class="benefit-title">Conforto Anatômico</span>
-          <span class="benefit-desc">O encaixe no rosto é perfeito. Leveza e design pensados para você usar por horas sem desconforto.</span>
+          <span class="benefit-desc">O encaixe no rosto é perfeito. Leveza e design pensados para você.</span>
         </div>
       </div>
     </section>
@@ -1174,6 +1353,12 @@
 
   <!-- ===== WHATSAPP FLUTUANTE ===== -->
   <a href="https://wa.me/5512997301273?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20óculos%20LUPA%20STYTLLE%20com%20Protocolo%20Visão%20Blindada%20360°" class="whatsapp-float" target="_blank" title="Fale conosco no WhatsApp">💬</a>
+
+  <!-- ===== COOKIE CONSENT ===== -->
+  <div class="cookie-consent" id="cookieConsent">
+    <p>Utilizamos cookies para melhorar nosso site e sua experiência de compra.</p>
+    <button class="cookie-btn" id="acceptCookies">ENTENDI E FECHAR</button>
+  </div>
 
   <!-- ===== CART & WHATSAPP ===== -->
   <button class="cart-btn" id="openCart">🛒 Carrinho (0)</button>
@@ -1212,15 +1397,30 @@
     }
 
     // ========== POPULAR AS GRIDS ==========
-    const grid = document.getElementById('productsGrid');
-    const acessoriosGrid = document.getElementById('acessoriosGrid');
-    const novGrid = document.getElementById('novidadesGrid');
-    const promoGrid = document.getElementById('promoGrid');
+    const maisVendidasGrid = document.getElementById('maisVendidasGrid');
+    const radarPremiumGrid = document.getElementById('radarPremiumGrid');
+    const julietesDisponiveisGrid = document.getElementById('julietesDisponiveisGrid');
+    const novosModelosGrid = document.getElementById('novosModelosGrid');
 
-    grid.innerHTML = products.filter(p => p.category === 'destaque').map(renderCard).join('');
-    acessoriosGrid.innerHTML = products.filter(p => p.category === 'acessorio').map(renderCard).join('');
-    promoGrid.innerHTML = products.filter(p => p.category === 'promocao').map(renderCard).join('');
-    novGrid.innerHTML = products.filter(p => p.category === 'novidade').map(renderCard).join('');
+    function renderAlbumCard(album) {
+      return `<div class="album-card" data-album-id="${album.id}" style="cursor: pointer;"><img src="${album.thumbnail}" alt="${album.name}" loading="lazy" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px;"><div style="position: relative; margin-top: 10px;"><div class="card-title" style="font-weight: 700; font-size: 16px; color: var(--accent);">${album.name}</div><div style="color: var(--muted); font-size: 13px; margin-top: 4px;">${album.description}</div><div style="color: var(--accent); font-weight: 700; margin-top: 8px; font-size: 12px;">Ver ${album.colors.length} cores</div></div></div>`;
+    }
+
+    function updateGrids(filteredProducts = products) {
+      maisVendidasGrid.innerHTML = albums.maisVendidas.items.map(renderAlbumCard).join('');
+      radarPremiumGrid.innerHTML = albums.radarPremium.items.map(renderAlbumCard).join('');
+      julietesDisponiveisGrid.innerHTML = albums.julietesDisponiveis.items.map(renderAlbumCard).join('');
+      novosModelosGrid.innerHTML = albums.novosAlbuns.items.map(renderAlbumCard).join('');
+    }
+
+    updateGrids();
+
+    // ========== LÓGICA DE PESQUISA ==========
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      updateGrids();
+    });
 
     // ========== CARRINHO ==========
     let cart = [];
@@ -1299,6 +1499,90 @@
         btn.classList.remove('loading');
         btn.textContent = originalText;
       }, 1200);
+    }
+
+    // ========== EVENTO DE CLIQUE NOS ÁLBUNS ==========
+    document.addEventListener('click', function(e) {
+      const albumCard = e.target.closest('.album-card');
+      if(albumCard) {
+        const albumId = albumCard.dataset.albumId;
+        showAlbumModal(albumId);
+      }
+    });
+
+    // ========== MODAL PARA VISUALIZAR VARIEDADES ==========
+    function showAlbumModal(albumId) {
+      const albumInfo = getAlbumInfo(albumId);
+      if (!albumInfo) return;
+
+      const colors = albumInfo.colors;
+      const colorCardsHtml = colors.map(color => `
+        <div class="album-color-card" style="background: var(--glass); padding: 12px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid rgba(0, 255, 0, 0.1); transition: all 0.3s ease;" data-color-id="${color.id}">
+          <img src="${color.img}" alt="${color.name}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px;">
+          <div style="margin-top: 8px; font-weight: 700; color: var(--accent); font-size: 13px;">${color.name}</div>
+          <div style="color: #00cc00; font-weight: 700; margin-top: 4px;">R$ ${color.price.toFixed(2).replace('.', ',')}</div>
+          <button class="buy-color-btn" data-color-id="${color.id}" style="background: var(--accent); color: #000; border: none; padding: 6px 12px; border-radius: 4px; font-weight: 700; margin-top: 8px; cursor: pointer; width: 100%;">Comprar</button>
+        </div>
+      `).join('');
+
+      const modalHtml = `
+        <div class="album-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10000;">
+          <div class="album-modal" style="background: var(--bg); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 12px; padding: 24px; max-width: 800px; max-height: 90vh; overflow-y: auto; color: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h2 style="margin: 0; color: var(--accent); font-size: 24px;">${albumInfo.name}</h2>
+              <button class="close-modal" style="background: none; border: none; color: var(--accent); font-size: 28px; cursor: pointer;">×</button>
+            </div>
+            <p style="color: var(--muted); margin-bottom: 20px;">${albumInfo.description}</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+              ${colorCardsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Remover modal anterior se existir
+      const existingModal = document.querySelector('.album-modal-overlay');
+      if (existingModal) existingModal.remove();
+
+      // Adicionar novo modal
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+      // Fechar modal
+      document.querySelector('.close-modal').addEventListener('click', () => {
+        document.querySelector('.album-modal-overlay').remove();
+      });
+
+      document.querySelector('.album-modal-overlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+          document.querySelector('.album-modal-overlay').remove();
+        }
+      });
+
+      // Adicionar ao carrinho
+      document.querySelectorAll('.buy-color-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const colorId = parseInt(e.target.dataset.colorId, 10);
+          const color = colors.find(c => c.id === colorId);
+          if (color) {
+            const productToAdd = {
+              id: colorId,
+              title: `${albumInfo.name} - ${color.name}`,
+              price: color.price,
+              img: color.img,
+              qty: 1
+            };
+            const existing = cart.find(x => x.id === colorId);
+            if (existing) {
+              existing.qty++;
+            } else {
+              cart.push(productToAdd);
+            }
+            updateCartUI();
+            showToast('Produto adicionado ao carrinho!');
+            document.querySelector('.album-modal-overlay').remove();
+          }
+        });
+      });
     }
 
     document.body.addEventListener('click', function(e) {
@@ -1496,9 +1780,24 @@
 		      });
 	    })();
 
-	    // ========== ATUALIZAR PROVA SOCIAL (Simulacao) - REMOVIDO PARA MAIOR REALISMO ==========
-	    // O elemento .social-proof agora é estático, refletindo os números iniciais do HTML.
-	    // Para atualizar, edite o HTML diretamente na linha 989.
+		    // ========== ATUALIZAR PROVA SOCIAL (Simulação Realista) ==========
+		    function updateSocialProof() {
+		      const buyersCount = document.getElementById('buyersCount');
+		      const viewersCount = document.getElementById('viewersCount');
+		      
+		      if (buyersCount && viewersCount) {
+		        // Compradores do mês: entre 500 e 900
+		        const buyers = Math.floor(Math.random() * (900 - 500 + 1)) + 500;
+		        buyersCount.innerText = buyers + ' pessoas';
+		        
+		        // Pessoas vendo agora: entre 15 e 25, mudando sutilmente
+		        setInterval(() => {
+		          const viewers = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
+		          viewersCount.innerText = viewers + ' pessoas';
+		        }, 5000); // Muda a cada 5 segundos
+		      }
+		    }
+		    updateSocialProof();
 
     // ========== PARALLAX SUAVE NO BANNER ==========
     const heroRight = document.querySelector('.hero-right img');
@@ -1510,11 +1809,24 @@
       });
     }
 
-	    // ========== ANIMACAO DE CARDS AO CARREGAR ==========
-	    const cards = document.querySelectorAll('.card');
-	    cards.forEach((card, index) => {
-	      card.style.animationDelay = (index * 0.1) + 's';
-	    });
+		    // ========== ANIMACAO DE CARDS AO CARREGAR ==========
+		    const cards = document.querySelectorAll('.card');
+		    cards.forEach((card, index) => {
+		      card.style.animationDelay = (index * 0.1) + 's';
+		    });
+
+		    // ========== COOKIE CONSENT ==========
+		    const cookieConsent = document.getElementById('cookieConsent');
+		    const acceptCookies = document.getElementById('acceptCookies');
+		    
+		    if (localStorage.getItem('cookiesAccepted')) {
+		      cookieConsent.style.display = 'none';
+		    }
+
+		    acceptCookies.addEventListener('click', () => {
+		      localStorage.setItem('cookiesAccepted', 'true');
+		      cookieConsent.style.display = 'none';
+		    });
 	
 	    // Efeito 3D/Parallax removido, substituído por vídeo animado.
 	
