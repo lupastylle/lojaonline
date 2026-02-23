@@ -34,6 +34,7 @@
   <title>LUPA STYLLE — Óculos Premium com Protocolo Visão Blindada 360° | Compre Online</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="./lightbox.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"LUPA STYLLE","url":"https://peaceful-baklava-57a81e.netlify.app/","logo":"https://peaceful-baklava-57a81e.netlify.app/imageslogo.jpg","description":"Loja especializada em oculos com Protocolo Visao Blindada 360. Qualidade premium, protecao UV real e conforto anatomico.","contactPoint":{"@type":"ContactPoint","contactType":"Customer Service","telephone":"+55-12-99730-1273"}}
   </script>
@@ -1403,7 +1404,8 @@
     const novosModelosGrid = document.getElementById('novosModelosGrid');
 
     function renderAlbumCard(album) {
-      return `<div class="album-card" data-album-id="${album.id}" style="cursor: pointer;"><img src="${album.thumbnail}" alt="${album.name}" loading="lazy" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px;"><div style="position: relative; margin-top: 10px;"><div class="card-title" style="font-weight: 700; font-size: 16px; color: var(--accent);">${album.name}</div><div style="color: var(--muted); font-size: 13px; margin-top: 4px;">${album.description}</div><div style="color: var(--accent); font-weight: 700; margin-top: 8px; font-size: 12px;">Ver ${album.colors.length} cores</div></div></div>`;
+      const colorImages = album.colors.map(c => c.img);
+      return `<div class="album-card" data-album-id="${album.id}" style="cursor: pointer;"><img src="${album.thumbnail}" alt="${album.name}" loading="lazy" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; cursor: zoom-in;" class="album-thumbnail-img" data-album-id="${album.id}" onclick="event.stopPropagation();"><div style="position: relative; margin-top: 10px;"><div class="card-title" style="font-weight: 700; font-size: 16px; color: var(--accent);">${album.name}</div><div style="color: var(--muted); font-size: 13px; margin-top: 4px;">${album.description}</div><div style="color: var(--accent); font-weight: 700; margin-top: 8px; font-size: 12px;">Ver ${album.colors.length} cores</div></div></div>`;
     }
 
     function updateGrids(filteredProducts = products) {
@@ -1503,8 +1505,17 @@
 
     // ========== EVENTO DE CLIQUE NOS ÁLBUNS ==========
     document.addEventListener('click', function(e) {
+      const albumThumbnailImg = e.target.closest('.album-thumbnail-img');
       const albumCard = e.target.closest('.album-card');
-      if(albumCard) {
+      
+      if(albumThumbnailImg) {
+        const albumId = albumThumbnailImg.dataset.albumId;
+        const albumInfo = getAlbumInfo(albumId);
+        if (albumInfo) {
+          const colorImages = albumInfo.colors.map(c => c.img);
+          openImageLightbox(albumInfo.thumbnail, albumInfo.name, colorImages);
+        }
+      } else if(albumCard) {
         const albumId = albumCard.dataset.albumId;
         showAlbumModal(albumId);
       }
@@ -1556,6 +1567,15 @@
         if (e.target === e.currentTarget) {
           document.querySelector('.album-modal-overlay').remove();
         }
+      });
+
+      // Clique nas imagens para abrir Lightbox
+      document.querySelectorAll('.color-img-lightbox').forEach(img => {
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const colorImages = colors.map(c => c.img);
+          openImageLightbox(img.src, albumInfo.name, colorImages);
+        });
       });
 
       // Adicionar ao carrinho
@@ -1832,11 +1852,15 @@
 	
 
   </script>
-	<!-- ===== MÚSICA DE FUNDO (Inicia no primeiro clique) ===== -->
-	  <audio id="background-music" loop>
-	    <source src="musica.mp3" type="audio/mpeg">
-	    Seu navegador não suporta o elemento de áudio.
-	  </audio>
+
+  <!-- ===== LIGHTBOX SCRIPT ===== -->
+  <script src="./lightbox.js"></script>
+
+		<!-- ===== MÚsiCA DE FUNDO (Inicia no primeiro clique) ===== -->
+		  <audio id="background-music" loop>
+		    <source src="musica.mp3" type="audio/mpeg">
+		    Seu navegador não suporta o elemento de áudio.
+		  </audio>
 	
 	  <!-- ===== MASCOTE INTERATIVO (ADAPTADO PARA GIF) ===== -->
 	  <div id="mascote-container">
