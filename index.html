@@ -1310,33 +1310,24 @@
       <div class="social-proof" id="dynamicSocialProof" style="margin: 40px auto; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
         ✓ <strong id="buyersCount">582 pessoas</strong> compraram este mês | <strong id="viewersCount">19 pessoas</strong> estão vendo agora
       </div>
+    </section>
 
-      <!-- PROTOCOLO VISAO BLINDADA 360 -->
-      <div id="protocolo" class="section-title" style="text-align: center; margin-top: 60px;">
-        <h2 style="font-size: 28px;">🔬 Protocolo Visão Blindada 360°</h2>
-        <p style="margin-top: 10px;">Todo óculos LUPA STYLLE passa por 4 testes rigorosos de qualidade em nosso laboratório.</p>
+    <!-- ===== SEÇÃO DE 3 FOTOS LADO A LADO (1x1) ===== -->
+    <section class="section" style="margin-top: 60px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+      <div class="section-title" style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 28px;">Galeria de Estilos</h2>
+        <p>Conheça as diferentes formas de usar LUPA STYLLE</p>
       </div>
-
-      <div class="benefits" style="margin-top: 30px;">
-        <div class="benefit">
-          <div class="benefit-icon">🛡️</div>
-          <span class="benefit-title">Prova de Impacto</span>
-          <span class="benefit-desc">Lentes e armações testadas para aguentar o uso intenso do dia a dia.</span>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); border-radius: 12px; border: 1px solid rgba(0, 255, 0, 0.2); overflow: hidden; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(0, 255, 0, 0.5)'; this.style.transform='scale(1.02)';" onmouseout="this.style.borderColor='rgba(0, 255, 0, 0.2)'; this.style.transform='scale(1)';">
+          <img src="https://via.placeholder.com/300x300/1a1a1a/00ff00?text=Foto+1" alt="Galeria 1" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">☀️</div>
-          <span class="benefit-title">Proteção UV400 Real</span>
-          <span class="benefit-desc">Validamos com equipamento profissional se a proteção UV é 400.</span>
+        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); border-radius: 12px; border: 1px solid rgba(0, 255, 0, 0.2); overflow: hidden; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(0, 255, 0, 0.5)'; this.style.transform='scale(1.02)';" onmouseout="this.style.borderColor='rgba(0, 255, 0, 0.2)'; this.style.transform='scale(1)';">
+          <img src="https://via.placeholder.com/300x300/1a1a1a/00ff00?text=Foto+2" alt="Galeria 2" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">🔧</div>
-          <span class="benefit-title">Montagem Firme</span>
-          <span class="benefit-desc">Checamos cada parafuso e encaixe para garantir firmeza e ajuste.</span>
-        </div>
-        <div class="benefit">
-          <div class="benefit-icon">😊</div>
-          <span class="benefit-title">Conforto Anatômico</span>
-          <span class="benefit-desc">O encaixe no rosto é perfeito. Leveza e design pensados para você.</span>
+        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); border-radius: 12px; border: 1px solid rgba(0, 255, 0, 0.2); overflow: hidden; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(0, 255, 0, 0.5)'; this.style.transform='scale(1.02)';" onmouseout="this.style.borderColor='rgba(0, 255, 0, 0.2)'; this.style.transform='scale(1)';">
+          <img src="https://via.placeholder.com/300x300/1a1a1a/00ff00?text=Foto+3" alt="Galeria 3" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
       </div>
     </section>
@@ -1807,20 +1798,24 @@
 
 		    // ========== ATUALIZAR PROVA SOCIAL (Simulação Realista) ==========
 		    function updateSocialProof() {
-		      const buyersCount = document.getElementById('buyersCount');
-		      const viewersCount = document.getElementById('viewersCount');
-		      
-		      if (buyersCount && viewersCount) {
-		        // Compradores do mês: entre 500 e 900
-		        const buyers = Math.floor(Math.random() * (900 - 500 + 1)) + 500;
-		        buyersCount.innerText = buyers + ' pessoas';
-		        
-		        // Pessoas vendo agora: entre 15 e 25, mudando sutilmente
-		        setInterval(() => {
-		          const viewers = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
-		          viewersCount.innerText = viewers + ' pessoas';
-		        }, 5000); // Muda a cada 5 segundos
-		      }
+      const buyersCount = document.getElementById('buyersCount');
+      const buyersCountTop = document.getElementById('buyersCountTop');
+      const viewersCount = document.getElementById('viewersCount');
+      const viewersCountTop = document.getElementById('viewersCountTop');
+      
+      if (buyersCount && viewersCount) {
+        // Compradores do mês: entre 500 e 900
+        const buyers = Math.floor(Math.random() * (900 - 500 + 1)) + 500;
+        buyersCount.innerText = buyers + ' pessoas';
+        if (buyersCountTop) buyersCountTop.innerText = buyers + ' pessoas';
+        
+        // Pessoas vendo agora: entre 10 e 22, mudando sutilmente
+        setInterval(() => {
+          const viewers = Math.floor(Math.random() * (22 - 10 + 1)) + 10;
+          viewersCount.innerText = viewers + ' pessoas';
+          if (viewersCountTop) viewersCountTop.innerText = viewers + ' pessoas';
+        }, 3000); // Muda a cada 3 segundos
+      }
 		    }
 		    updateSocialProof();
 
